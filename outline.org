@@ -1,0 +1,178 @@
+* R, Sweave, ADMB and Reproducible Research in Fisheries Science
+
+** Workshop Objectives
+
+- introduce concept of reproducible research
+- introduce software tools and methods of work that are consistent
+  with reproducible research
+- provide you with an understanding of what each tool is doing and
+  how they fit together
+- provide worked examples that you can adapt to you own analysis
+
+
+** Workshop Approach
+- incrementally introduce tools and basic usage
+- presentations and discussions followed by exercises
+- applied - lots of examples
+- most examples incrementally build on earlier examples
+- some bonus examples that people might want to explore
+
+   
+** Software requirements
++ assumed these applications are installed and properly configured on
+  your computer:
++ working knowledge of 
+  - AD Model Builder 
+  - R
++ installed:
+  + Latex
+  + sweave/knittr
+  + git 
++ Integrated Development Environment:
+  + emacs with admb-ide, ESS, magit (see workshop configuration)
+OR
+  + Rstudio, and admb-ide, git-gui 
+
+
+** Workshop Outline
+- Introduction
+- Reproducible Research  
+  + the philosophy and basic ideas
+- Overview of the software we'll be using
+- intro to emacs
+  + exercises to introduce emacs and verify configuration
+- intro to Latex
+  + create our first report
+- Sweave/knitr
+  + create our first dynamic report
+  + more complicated reports:
+    + multiple tables
+    + multiple figures
+    + references
+    + abstract
+    + presentation
+    + multiple chapters
+- AMDB and Sweave
+  + communicating between ADMB and R
+  + admb2R
+  + ADMButils
+  + reports using model fit with admb
+- Version Control
+  + basic concepts
+  + intro to git
+  + example using git and a scaa
+  + Integrating git with sweave
+
+
+
+
+
+*** Reproducible Research
+- what is reproducible research
+- how it is changing science - gold standard for open, transparent
+  and credible science
+- MORE ...
+
+
+
+*** Typical Work Flow
+- separate files for each stage of process:
+  + data cleaning and preparation
+  + model fitting and analysis
+  + summarization and reporting
+- lots of clicking and copy-paste
+- often uses proprietary binary file format (.ppt, .doc, .xls) that
+  is difficult to 'version'
+- tedious, error prone, difficult or impossible to replicate exactly
+
+*** But what if ...
+- I make a small change to data?
+- I want to implement complicated model improvements that might break everything?
+- I need to find data and model that created a report
+- I need to work collaborative with an other analyst?
+    + How do I know exactly what's changed
+    + How do I integrate their changes with my changes?
+
+
+*** Alternative Workflow
+
+- all preparation, analysis, reporting done in simple text files
+- results from analysis integrated directly into reporting products -
+  reports, presentations, html documents
+- no undocumented clicking or cutting and pasting 
+- version control software keeps track of changes
+  + reset directory to past states
+  + compare changes from one state to another
+  + branching and merging allow 'safe' development
+
+
+
+
+
+
+*** what is sweave?
+
+sweave/knittR
+
+**** Some simple examples
+- A super simple template fits a linear model and produces a simple
+  tpl report
+
+**** Some more challenging examples
+- report fitting VonB curve - with plots, summary tables, embedded
+  results(Sexpr{}) and an abstract
+- include figure directory
+
+*** Connecting admb and R
+- cover options to get output to and from admb to R
+- writing text file
+- ADBM2R package - Mike Prager et at
+- R2ADMB package - 
+- glmmADMB - 
+ 
+*** Using ADMB2R
+- cxx file format
+- modification to tpl
+- placement of admb2r.cpp file
+
+*** admbUtils
+- R-functions for reading and writing files associated with admb
+- reads par, std files
+- writes dat and pin files
+- readcxx() wrapper that returns object containing values in par, std,
+  and .rdat
+- read.mcmc() - general function to read in mcmc results produced by
+  admb (takes a number of arguments to accommodate numerous formats)
+
+*** ADMButils Examples
+- write pin and dat files from R
+- fit model
+- read model output
+
+*** ADMB, R and Sweave
+- now work through some examples of fitting models in ADMB and
+  producing report(s)
+- start simple - VonB example above
+- extend to a scaa model
+
+*** Directory Setup
+- ModelDir
+    - sweave
+    - sweave_long
+    - figures
+    - .git
+
+
+    
+*** intro to git
+
+    
+*** resources
+- py video
+- software carpentry
+- paper on bioinformatics project organization
+- paper on reproducablity and openness
+- git
+- sweave
+- knitter
+

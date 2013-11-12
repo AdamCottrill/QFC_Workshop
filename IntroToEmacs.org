@@ -1,0 +1,125 @@
+
+
+
+** Intro To Emacs
+what is it?
+- open source, extensible text editor
+- so much more than text editor
+- one stop shop - 
+
+Notation
+
+
+
+
+finding opening and closing files
+editing basics
+
+* Buffers
+navigating
+
+* Modes
+- modes give emacs incredible flexibility
+- different modes impart different behaviour
+- one major mode per buffer*
+  + basic functionality
+- multiple minor modes per buffer
+
+* Major Modes
+- major mode automatically determined by file extension
+- ESS
+- AMDB
+- Latex
+- noweb*
+- html
+
+
+* Minor Modes
+- yas yassnippet
+- ac auto complete
+- hl-p
+
+
+* Standard emacs shortcuts
+
+C-h m  - describe mode - shows all key binding for a mode
+
+C-w cut
+M-w copy 
+C-y paste
+C-x _ undo
+
+C-x f open buffer
+C-x k close buffer
+C-x s save buffer
+C-x w save_as file
+
+
+C-x o other buffer
+C-x b switch to buffer 
+C-x C-b switch to buffer 
+
+C-x 1 one window
+C-x 2 split horizontally
+C-x 3 split vertically
+
+
+* custom global shortcuts
+- F3  - refresh file from disk
+- M-x now - insert time-stamp at point
+- C-c z copy full path
+- M-\ swap slashes
+- C-x C-r open recent files
+
+- C-> insert string rectangle
+- C-x r k kill string rectangle
+
+
+
+* Ispell
+
+M-x ispell
+<space> to skip
+[#] to select suggestion
+- selected region or whole buffer (from point)
+
+* Yasnippet
+
+-'yet another snippet'
+- inserts mode/context specific snippets
+- snippets for R, latex, sweave, admb
+- try it
+
+* autocomplete
+- provides context specific options
+- pop-up menu
+  + arrows to navigate
+  + return to select
+
+
+* ADMB 
+F8 - tpl2cpp - compile - link
+F9 - run model
+
+
+* ESS
+
+
+C-c C-r send region
+C-<return>  send region
+
+* Knitr/Sweave
+
+- *.rnw and *.rhtml files
+
+- M-r  knit
+- M-s  sweave
+- M-P  generate pdf
+
+* Additional config options
+- cut-paste-copy short cuts
+- auto complete
+- instert string rectangle
+
+
+

@@ -1,0 +1,126 @@
+** Installed Software
+- these set up instructions assume that you have working
+  installations of the following software packages:
++ R  ()
++ ADMB  ()  
++ Miktex (Latex) () and 
++ git
+
+** Set up
+- a zip file will be provided that will contain all of the
+  configurations files and additional packages needed for the workshop
+- unzip the contents of the archive to a convenient location and note
+  the path
+
+** What's in the zip?
+- emacs executable
+- aspell executable - spell checker for e-macs
+- emacs plugins:
+  + autocomplete
+  + admb-ide
+  + ESS - emacs speaks statistics
+  + magit 
+  + yasnippet
+- associated utility files
+
+** Set up - emacs
+- navigate to ~/workshop directory
+- double click emacs.bat to start emacs (ignore warnings for now)
+- from within emacs open the .emacs file located in the ~\workshop directory
+- edit line 5 of .emacs to reflect location of the
+  "~/workshop/emacs/" directory on your computer
+- save the .emacs file and close emacs
+- re-open emacs by double clicking on emacs.bat - the warning should
+  be gone
+
+** Set up - R-packages
+
+- make sure that the following packages have been installed into your
+  instance of R
+  + knitr (and/or sweave) - both available on CRAN
+  + ADMButils (see ~/utils/Rpackages)
+
+
+** Set up - ADMB
+
+- edit paths in ~/workshop/emacs/SetADMBpaths.bat to reflect location
+  of your admb installation and path to your compiler
+- copy ~/workshop/utils/admb2r.cpp to ADMB_HOME/include/admb2r.cpp
+
+
+** Tests
+- the first series of tests will be conducted independent of emacs
+- later tests will verify that emacs is configured properly and all
+  of your plugins are working
+- each of following slides assume that you have a command prompt
+  open.  
+  + The top line indicates what you need to type, 
+  + the body of the slide indicates what you should see if you were
+    successful (a ... indicates that the output has been trimmed)
+  + if a bottom line is present on the slide, it will indicate the
+    command needed to return to prompt
+- if the command prompt returns "not recognized as an internal or
+  external command" the software may not be installed or configured
+  properly - please consult the documentation for that software
+
+
+
+- open emacs and type M-x shell ret
++ (Alt + x key, followed by s-h-e-l-l RETURN)
+- a command prompt should open.
+- at the command prompt (>) type:
+
+
+** Git
+> git
+
+git
+usage: git [--version] [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           [-c name=value] [--help]
+           <command> [<args>]
+...
+
+** ADMB
+> admb
+Usage: admb [-d] [-g] [-r] [-s] model
+
+Build AD Model Builder executable from TPL.
+
+  -d     Create DLL
+  -g     Insert debugging symbols
+  -r     Create ADMB-RE
+  -s     Enforce safe bounds
+  model  Filename prefix, e.g. simple
+
+** R
+> R --vanilla
+
+R version 3.0.1 (2013-05-16) -- "Good Sport"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: i386-w64-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+...
+
+q()
+
+** LaTeX
+
+> latex
+
+latex
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+**
+
+\end
+\end
+
+
+
+
+
