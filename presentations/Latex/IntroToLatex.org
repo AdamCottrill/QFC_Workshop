@@ -1,0 +1,230 @@
+#+TITLE: Intro to \LaTeX
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+#+latex_header: \newcommand\Fontx{\fontsize{10}{12}\selectfont}
+
+
+#+BEAMER_FRAME_LEVEL: 1
+
+
+* What is \LaTeX?
+- mark-up language and document preparation system
+- originally invented in 1980s by Leslie Lamport - mature, powerful
+- provides high level language on top of TeX (Donald Knuth)
+- continues to be widely used in academia, publishing and industry
+- particularly well suited for developing complex documents and books
+- excellent support for type-setting formulas and equations - widely
+  used in mathematics and physics
+
+* Latex Learning curve versus Word
+- analogous to admd and Excel
+
+* Latex Basics
+
+- philosophy remove formatting and presentation concerns from author
+- author focuses on basic document structure and content, \LaTeX
+  handles typesetting, formatting and cross refeences
+- addon-packages ([[http://www.ctan.org]]) provide additional functionality  
+- different than Word and other "What-You-See-Is-What-You-get"
+  applications
+- \LaTeX uses plain text files (*.tex)
+
+
+* A Minimal Example
+
+** ~/examples/0\_minimal\_latex/min.tex                           :B_example:
+   :PROPERTIES:
+   :BEAMER_env: example
+   :END:
+
+#+BEGIN_SRC latex
+% minimal latex example
+\documentclass{article}
+\begin{document}
+  \LaTeX{} is a document preparation system for the 
+  \TeX{}typesetting program. 
+\end{document}
+#+END_SRC
+
+
+
+* Pre-amble
+- precedes the \textbackslash{}begin{document} command
+- loads required packages
+- document specific settings
+- possible to define macros
+** Examples                                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC latex
+\documentclass[12pt,letterpaper]{article}  
+\usepackage{longtable}                     
+\usepackage{ctable}
+\graphicspath{{figures/}}
+\title{Fill in title here}
+\author{Your Name} 
+#+END_SRC
+
+* Top Matter
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC latex
+\title{Basic \LaTeX{} Document Structure}
+\author{Homer Simpson\\
+  742 Evergreen Terrace,\\
+  Springfield,\\
+  United States,\\
+  123456\\
+  \texttt{hsimpson@simpsons.com}}
+\date{\today}
+\maketitle
+#+END_SRC
+
+
+* Sections
+
+- define document structure with sections
+
+** Examples                                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC latex
+\section{Introduction}
+\subsection{A Subsection Under Introduction}
+\subsubsection{A Subsubsection}
+\paragraph{paragraph}
+\subparagraph{subparagraph}
+% suppress numbers with asterisk
+\section*{Introduction}
+
+#+END_SRC
+
+
+* Environments
+- provide specific functionality associated with type setting various
+  document components
+- examples include tables, figures
+- environments can be nested within one another
+
+* Figures
+
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+#+BEGIN_SRC latex
+\begin{figure}
+  \begin{center} 
+    \includegraphics[width=\textwidth]{figurename} 
+  \end{center} 
+  \caption[short caption]{full caption}
+  \label{fig:figurename}
+\end{figure}
+#+END_SRC
+
+* Tables
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+#+LATEX: \Fontx
+#+BEGIN_SRC latex
+\begin{table}
+  \begin{center}
+    \begin{tabular}{ l r }
+      Name & Value \\
+      \hline
+      row1col1 & row1col2 \\
+      row2col1 & row2col2 \\     
+    \end{tabular}
+  \end{center}
+  \caption[shortcaption]{full table caption}
+  \label{tbl:simpletable}
+\end{table}
+#+END_SRC
+
+* References
+
+* Abstracts
+
+- so common have designated environment
+
+** Example                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC latex
+\begin{abstract}
+Your abstract goes here...
+...
+\end{abstract}
+#+END_SRC
+
+* Multi-part Documents
+
+- for multiple parts documents use ~\include{}~
+- main.tex contains preamble and document-wide settings (TOC, lists of
+  figure and tables, etc.)
+** main.tex                                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+#+LATEX: \Fontx
+#+BEGIN_SRC latex
+...   % preamble
+\begin{document}
+...  
+\include{first_chapter.tex}
+\include{second_chapter.tex}
+\include{third_chapter.tex}
+...
+\end{document}
+#+END_SRC
+
+* Resources
+
+- Official Repositry of \Latex packages: 
+
+[[http://www.ctan.org/]]
+
+- Useful tutorial
+[[http://www.andy-roberts.net/writing/latex]]
+
+- symbols
+
+- Tex Exchange
+
+
+* Recap

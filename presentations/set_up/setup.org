@@ -1,0 +1,201 @@
+#+TITLE: QFC Reproducible Research Workshop - Software Setup
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+
+#+BEAMER_FRAME_LEVEL: 1
+
+
+* Installed Software
+- these set up instructions assume that you have working
+  installations of the following software packages:
+  - R  ([[http://www.r-project.org]])
+  - ADMB  ([[http://admb-project.org/]])  
+  - LaTeX
+    - proTeXt ([[http://www.tug.org/protext/]]) or MiKTex ([[http://www.miktex.org/]]) on widows
+    - MacTex ([[http://www.tug.org/mactex/]]) on a mac 
+    - Tex Live ([[http://www.tug.org/texlive/]]) on linux
+  - git ([[http://git-scm.com/]])
+
+* Set up
+- a zip file has been provided that contains all of the
+  configurations files and additional packages needed for the workshop
+- unzip the contents of the archive to a convenient location and note
+  the path
+- replace '~' in the remaining slides with your path
+
+* What's in the zip?
+- emacs executable
+- aspell executable - a spell checker for e-macs
+- emacs plugins:
+  + autocomplete
+  + admb-ide
+  + ESS - emacs speaks statistics
+  + magit 
+  + yasnippet
+- associated utility files
+
+* Set up - emacs
+- navigate to ~/workshop 
+- double click 'emacs.bat' to start emacs (ignore warnings for now)
+- from within emacs open the .emacs file located in the ~/workshop directory
+- edit line 5 of .emacs to reflect location of the
+  "~/workshop/emacs/" directory on your computer
+- save the .emacs file and close emacs
+- re-open emacs by double clicking on emacs.bat - the warning should
+  be gone
+
+
+* Tests
+- each of following slides assume that you have a command prompt
+  open.  
+  + The top line indicates what you need to type, 
+  + the body of the slide indicates what you should see if you were
+    successful (a ... indicates that the output presented here has
+    been trimmed)
+  + if a bottom line is present on the slide (eg. 'q()'), it will indicate the
+    command needed to return to the prompt
+
+* Tests (cont'd)
+
+- if the command prompt returns "not recognized as an internal or
+  external command" the software may not be installed or configured
+  properly - please consult the documentation for that software
+
+- open emacs and type M-x shell ret
+  + (Alt + x key, followed by s-h-e-l-l RETURN)
+- a new buffer named **shell** should open
+- at the command prompt (>) type:
+
+* Tests - Git
+** > git							    :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+#+begin_src sh
+git
+usage: git [--version] [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           [-c name=value] [--help]
+           <command> [<args>]
+...
+>
+#+end_src
+
+
+* Tests -  ADMB
+** > admb							    :B_block:
+
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+#+begin_src sh
+Usage: admb [-d] [-g] [-r] [-s] model
+
+Build AD Model Builder executable from TPL.
+
+  -d     Create DLL
+  -g     Insert debugging symbols
+  -r     Create ADMB-RE
+  -s     Enforce safe bounds
+  model  Filename prefix, e.g. simple
+>
+#+end_src
+
+
+* Tests - R
+** > R \texttt{-{}-}vanilla 					    :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+#+begin_src sh
+R version 3.0.1 (2013-05-16) -- "Good Sport"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: i386-w64-mingw32/i386 (32-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+...
+
+q()
+>
+#+end_src
+
+   
+
+* LaTeX
+** > latex							    :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+#+begin_src sh
+
+latex
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
+**
+
+...
+
+\end
+\end
+>
+#+end_src
+
+
+   
+* Set up - R-packages
+  
+- the following packages will be used in the workshop
+  + knitr (and/or sweave)
+  + reshape2
+  + xtable
+  + Hmisc
+  + ADMButils (not available on CRAN, see ~/utils/Rpackages)
+    
+** In R:							    :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+#+begin_src R
+> install.packages(c('knitr', 'reshape2', 'xtable', 
+                     'Hmisc'))
+#+end_src
+                     
+
+
+
+* Set up - ADMB
+
+- edit paths in ~/workshop/emacs/SetADMBpaths.bat to reflect location
+  of your admb installation and path to your compiler
+- copy ~/workshop/utils/admb2r.cpp to ADMB\_HOME/include/admb2r.cpp
+

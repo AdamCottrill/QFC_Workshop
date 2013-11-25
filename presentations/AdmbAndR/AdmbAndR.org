@@ -1,0 +1,115 @@
+#+TITLE: Knitr??  What about Sweave?
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+
+#+BEAMER_FRAME_LEVEL: 1
+
+
+
+* Getting data from admb
+- write text files from admb
+  - fine small number of files
+- parse admb report file
+  - may conflict with other tools
+  - fragile
+
+* admb2R
+- my preferred approach
+  - place admb2r.cpp on PATH
+  - add 2 statememts to tpl
+  - create cxx file with desired elements
+  - creates an *.rdat file that can be read directly into R using dget()
+
+* admb2R Basic Syntax
+- scalars
+- vectors
+- matrices
+
+* ADMButils
+- collection of R-functions for working with admb:
+  - readpar()
+  - readstd()
+  - readcxx()
+  - readmcmc()
+  - writepin()
+  - writedat()
+   
+- other options exist - R2admb, admbGLMM might be worth considering
+
+* readpar()
+
+- return contents of par file as a named list including gradient and
+  objective function
+** example
+
+
+* readstd()
+
+- return named list of values in std file produced by admb
+- values returned as "x" and "x.se"
+
+** example
+
+* readcxx()
+
+- a convience wrapper calls:
+  - readpar()
+  - readstd()
+  - dget()
+- returns named list that includes contents of cxx, par and std file
+
+
+* readmcmc()
+
+- reads in results of mcmc simulations from admb
+- returns an coda mcmc object  
+- default input csv file with header
+- numerous options to accomodate legacy approaches 
+
+** example
+
+
+* writepin() and writedat()
+
+- they take a list of arguments
+- create pin and dat files can be read by admb
+
+** example
+start <- list(Linf, k, t0)
+write.pin(start, "VonB.pin")
+
+data <- list(nobs, wfdata)
+write.pin(data, "VonB.dat")
+
+
+
+* calling admb from R
+- possible to use R to call admb executable
+  - write dat and pin file
+  - call admb executable
+  - read results and analyse in R
+  - copy results to archive directory
+  - repeat

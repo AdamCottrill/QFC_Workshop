@@ -1,7 +1,7 @@
 
 
 
-** Intro To Emacs
+* Intro To Emacs
 what is it?
 - open source, extensible text editor
 - so much more than text editor
@@ -54,14 +54,18 @@ C-x k close buffer
 C-x s save buffer
 C-x w save_as file
 
-
 C-x o other buffer
 C-x b switch to buffer 
-C-x C-b switch to buffer 
+C-x C-b buffer list
 
 C-x 1 one window
 C-x 2 split horizontally
 C-x 3 split vertically
+
+M-q wrap text
+
+M-%  search and replace
+C-M-%  search and replace using regular expressions
 
 
 * custom global shortcuts
@@ -76,6 +80,10 @@ C-x 3 split vertically
 
 
 
+
+
+
+* items below this point can be introduced as needed.
 * Ispell
 
 M-x ispell
@@ -123,3 +131,5 @@ C-<return>  send region
 
 
 
+
+* Recap

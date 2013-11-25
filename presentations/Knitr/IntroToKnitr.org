@@ -1,0 +1,111 @@
+#+TITLE: Knitr??  What about Sweave?
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+
+#+BEAMER_FRAME_LEVEL: 1
+
+* Knitr - the new Sweave
+
+- Sweave original literate programing engine for R (or S) written by XX
+
+- still works perfectly well
+- knitr re-implementation of sweave
+- minor differences in *.rnw files
+- much more flexible
+  + markdown to html
+  + 
+  + errors seem to be more transparent
+
+* Differences between knitr and Sweave
+- no *.sty file to register in kritr
+- default options
+- graphics
+- chunk options are variables
+
+* Basics
+- focus on rnw -> latex -> pdf
+- same basic principles apply to other formats and documents types
+- realize literate programming by imbedding analysis code directly in
+  source code of document 
+- code introduced in 'chunks' or using \Sexpr{} 
+
+* rnw file format and emacs 
+
+- R-Noweb file
+- contain both latex and embedded r code
+- ESS supports rnw files - major mode changes depending on location
+  point
+  + latex mode outside of chunks
+  + ess[S] mode inside of chunks
+
+** Compiling to pdf
+- M-r  run knitr current buffer (M-s to sweave)
+- M-P  compile tex file pdf
+   + (note uppercase P)
+
+* Chunk Options
+- default option and then example slides and output of most common
+  options
+
+* \Sexp{}
+
+- used to insert values inline (mid-sentence)
+- limited to single line expressions
+
+** code blocks
+- the value of pi = \Sexpr{pi}.
+** will render as
+- "The value of pi = 3.14."
+
+* Tables
+- number of packages that render R objects as latex tables
+  + xtable
+  + Hmisc
+- R-object support differs by package
+- admb objects - require custom function to convert to data frame or
+  write latex directly
+
+* Figures
+- two different approaches:
+  + chunk option fig=True
+  + manually create figure environment
+
+- handling figures much improved in knitr
+- first approach is probably adequate
+
+* Von Bert example
+
+
+* Is it worth it?
+
+- depends on:
+  + number of reports 
+  + number of times they need to be recreated or updated
+  + report complexity
+- personal choice
+- definite long-term savings - but it require short term investment
+
+* Recap

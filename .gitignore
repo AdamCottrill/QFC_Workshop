@@ -3,3 +3,6 @@
 *.out
 *.aux
 *.Rhistory
+*flymake*
+*.jpg
+*.dvi

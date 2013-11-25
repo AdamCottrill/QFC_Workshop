@@ -65,18 +65,15 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
-
-
+\graphicspath{{figures/}}
 
 
 \title{Von Bertalanfy growth curve for lake whitefish sample from
        southern Lake Huron in 2009}
 
-
 \author{Bob Sakamano}
 
 \maketitle
-
 
 \section*{Abstract}
 \label{sec:abstract}
@@ -90,115 +87,150 @@ The Von Bertalanfy growth parameters estimated using non-linar least
 squares where Linf= 600 $\pm$ 20, k = 0.25 $\pm$ 0.10, and t0= 0.1
 $\pm$ 0.02.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{wfdata} \hlkwb{<-} \hlkwd{read.csv}\hlstd{(}\hlstr{"whitefish.csv"}\hlstd{,} \hlkwc{header} \hlstd{=} \hlnum{TRUE}\hlstd{)}
-\hlstd{ages} \hlkwb{<-} \hlkwd{unique}\hlstd{(wfdata}\hlopt{$}\hlstd{AGE)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
 
 \section*{Introduction}
 \label{sec:introduction}
 
+Von Bertalanfy growth curve is often use to describe the growth of
+fish.  This paper describes how a Von Bertalanfy growth curve can be
+fit in R and a pdf summary report can be automatically generated using
+the knitr package.
 
 
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# fit the model and predicte size at age}
-\hlstd{start} \hlkwb{<-} \hlkwd{list}\hlstd{(}\hlkwc{Linf} \hlstd{=} \hlkwd{max}\hlstd{(wfdata}\hlopt{$}\hlstd{FLEN),} \hlkwc{t0} \hlstd{=} \hlnum{0}\hlstd{,} \hlkwc{k} \hlstd{=} \hlnum{0.25}\hlstd{)}
-\hlstd{vonB} \hlkwb{<-} \hlkwd{nls}\hlstd{(FLEN} \hlopt{~} \hlstd{Linf} \hlopt{*} \hlstd{(}\hlnum{1} \hlopt{-} \hlkwd{exp}\hlstd{(}\hlopt{-}\hlstd{k} \hlopt{*} \hlstd{(AGE} \hlopt{-} \hlstd{t0))),} \hlkwc{data} \hlstd{= wfdata,} \hlkwc{start} \hlstd{= start)}
-\hlkwd{summary}\hlstd{(vonB)}
-\end{alltt}
-\begin{verbatim}
-## 
-## Formula: FLEN ~ Linf * (1 - exp(-k * (AGE - t0)))
-## 
-## Parameters:
-##      Estimate Std. Error t value Pr(>|t|)    
-## Linf 568.3847    15.3966   36.92   <2e-16 ***
-## t0    -0.5190     0.1946   -2.67   0.0088 ** 
-## k      0.2325     0.0235    9.90   <2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error: 34 on 108 degrees of freedom
-## 
-## Number of iterations to convergence: 6 
-## Achieved convergence tolerance: 2.28e-06
-\end{verbatim}
-\begin{alltt}
-\hlstd{predicted} \hlkwb{<-} \hlkwd{data.frame}\hlstd{(}\hlkwc{AGE} \hlstd{=} \hlkwd{seq}\hlstd{((}\hlkwd{min}\hlstd{(ages)} \hlopt{-} \hlnum{1}\hlstd{),} \hlkwd{max}\hlstd{(ages)} \hlopt{+} \hlnum{1}\hlstd{,} \hlkwc{by} \hlstd{=} \hlnum{0.1}\hlstd{),} \hlkwc{FLEN} \hlstd{=} \hlnum{0}\hlstd{)}
-\hlstd{predicted}\hlopt{$}\hlstd{FLEN} \hlkwb{<-} \hlkwd{predict}\hlstd{(vonB,} \hlkwc{newdata} \hlstd{= predicted)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
 
 
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# make a plot}
-\hlstd{ylim} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,} \hlkwd{max}\hlstd{(wfdata}\hlopt{$}\hlstd{FLEN))}
-\hlkwd{plot}\hlstd{(wfdata}\hlopt{$}\hlstd{AGE, wfdata}\hlopt{$}\hlstd{FLEN,} \hlkwc{xlab} \hlstd{=} \hlstr{"Age"}\hlstd{,} \hlkwc{ylab} \hlstd{=} \hlstr{"Fork Length (mm)"}\hlstd{)}
-\hlkwd{lines}\hlstd{(predicted}\hlopt{$}\hlstd{AGE, predicted}\hlopt{$}\hlstd{FLEN,} \hlkwc{col} \hlstd{=} \hlstr{"blue"}\hlstd{)}
-\end{alltt}
-\end{kframe}
 
-{\centering \includegraphics[width=\maxwidth]{figure/minimal-plot_fit} 
-
-}
-
-
-
-\end{knitrout}
-
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcom{# calculate mean size at age}
-\hlstd{mu} \hlkwb{<-} \hlkwd{dcast}\hlstd{(wfdata, AGE} \hlopt{~} \hlstd{.,} \hlkwc{value} \hlstd{=} \hlstr{"FLEN"}\hlstd{,} \hlkwc{fun} \hlstd{= mean)}
-\end{alltt}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Using FLEN as value column: use value.var to override.}}\begin{alltt}
-\hlkwd{names}\hlstd{(mu)} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlstr{"Age"}\hlstd{,} \hlstr{"Observed"}\hlstd{)}
-\hlstd{mu}\hlopt{$}\hlstd{Predicted} \hlkwb{<-} \hlkwd{predict}\hlstd{(vonB,} \hlkwc{newdata} \hlstd{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{AGE} \hlstd{= ages))}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
 
 
 
 \section*{Materials and Methods}
 \label{sec:Materials_and_Methods}
 
+\subsection*{The Data}
+\label{sub:the_data}
 
+Lake whitefish collected from both the commercial fishery and the
+OMNR's offshore index program in 2009 were randomly selected for
+inclusion in this report.  Only fish with both a fork length (mm) and
+age estimate were considered to be eligible.  The sample used in is
+report was created by randomly selecting up to 10 individuals from each
+of the available age classes.
+
+\subsection*{The Model}
+\label{sub:the_model}
+
+The parameters of the Von Bertalanffy growth equation where found using
+non-linear least squares by fitting the following model to the
+observed data:
+
+\begin{equation}
+L_i = L_{inf} (1 - e^{-k(t_i-t_0)}) + e_i
+\end{equation}
+
+$L_i$ is the length of the $i^{th}$ fish at age $t_i$, $Linf$ is the
+asymptotic length (in mm), $k$ is the Brody growth coefficient, $t0$
+is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
+The starting value for the asymptotic length was taken as the maximum
+observed fork length in the sample, while $t0$ and $k$ were arbitrarily
+set to 0.0 and 0.25 respectively.  The methods used in this analysis
+closely follow those described in Quinn and Deriso (1999) and Haddon
+(2001).
 
 \section*{Results}
 \label{sec:results}
+
+A total of 111 fish were selected for this analysis.
+The mean size at each age is summarized in table \ref{tbl:size-at-age}
+The Von Bertalanffy model appeared to fit the data well.  Parameter
+estimates and confidence intervals are presented in table
+\ref{tbl:estimates} and a plot illustrating the fitted curve against
+observed mean size at age has been provided \ref{fig:fit}.
+
+\begin{figure}
+  \begin{center} 
+     \includegraphics[width=\textwidth]{plot_fit} 
+  \end{center} 
+  \caption{Mean size at age of a sub-sample of lake whitefish
+    collected from southern Lake Huron in 2009.  The blue line
+    respresents a Von Bertalanffy growth curve fit to the data using
+    non-linear least squared.}
+  \label{fig:plot_fit}
+\end{figure}
+
+
+% latex table generated in R 3.0.1 by xtable 1.7-1 package
+% Tue Nov 19 16:36:26 2013
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+  \hline
+ & Age & Observed & Predicted \\ 
+  \hline
+1 &   1 & 189.11 & 169.14 \\ 
+  2 &   2 & 240.40 & 251.98 \\ 
+  3 &   3 & 304.30 & 317.63 \\ 
+  4 &   4 & 335.30 & 369.66 \\ 
+  5 &   5 & 419.70 & 410.89 \\ 
+  6 &   6 & 467.00 & 443.57 \\ 
+  7 &   7 & 492.10 & 469.47 \\ 
+  8 &   8 & 509.40 & 489.99 \\ 
+  9 &   9 & 501.00 & 506.26 \\ 
+  10 &  10 & 517.40 & 519.15 \\ 
+  11 &  11 & 505.50 & 529.36 \\ 
+  12 &  12 & 527.00 & 537.46 \\ 
+   \hline
+\end{tabular}
+\caption{Observed and predicted size at age of lake whitefish sample from southern Lake Huron in 2009.} 
+\label{tbl:size-at-age}
+\end{table}
+
+
+
+% latex table generated in R 3.0.1 by xtable 1.7-1 package
+% Tue Nov 19 16:36:26 2013
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & t-value & Pr($>$$|$t$|$) \\ 
+  \hline
+1 & 568.38 & 15.40 & 36.92 & 0.0000 \\ 
+  2 & -0.52 & 0.19 & -2.67 & 0.0088 \\ 
+  3 & 0.23 & 0.02 & 9.90 & 0.0000 \\ 
+   \hline
+\end{tabular}
+\caption{Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.} 
+\label{tbl:estimates}
+\end{table}
+
 
 
 
 \section*{Discussion}
 \label{sec:discussion}
 
+Older lake whitefish are smaller than younger.  Lake whitefish from
+souther Lake Huron appear to be bigger than yellow perch and smaller
+than lake trout but grow slower than yellow perch and faster than lake
+trout.  These findings are largely consistent with previous on Lake
+Huron lake whitefish including....
 
 
-
+\clearpage
 \section*{References}
 \label{sec:references}
 
+\vspace{10 mm}
+
+Haddon, M. Modelling and Quantitative Methods in Fisheries, Second Edition, Taylor and Francis, 2001. 424 pages.
+
+\vspace{10 mm}
+
+Quinn, T.J and R. B. Deriso. Quantitative Fish Dynamics, New York:Oxford Univiversity Press, 1999. 542 pages.
 
 
 

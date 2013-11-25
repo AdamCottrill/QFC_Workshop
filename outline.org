@@ -1,22 +1,21 @@
 * R, Sweave, ADMB and Reproducible Research in Fisheries Science
-
+  
 ** Workshop Objectives
 
 - introduce concept of reproducible research
 - introduce software tools and methods of work that are consistent
   with reproducible research
-- provide you with an understanding of what each tool is doing and
+- provide an understanding of what each tool is doing and
   how they fit together
-- provide worked examples that you can adapt to you own analysis
-
+- provide worked examples that can be adapted to real-world analysis
 
 ** Workshop Approach
 - incrementally introduce tools and basic usage
 - presentations and discussions followed by exercises
 - applied - lots of examples
 - most examples incrementally build on earlier examples
-- some bonus examples that people might want to explore
-
+- some bonus examples that people might want to explore such as
+  presentations, markdown to htlm, and org-mode/babel
    
 ** Software requirements
 + assumed these applications are installed and properly configured on
@@ -42,6 +41,7 @@ OR
 - intro to emacs
   + exercises to introduce emacs and verify configuration
 - intro to Latex
+  + review basic structure of latex document
   + create our first report
 - Sweave/knitr
   + create our first dynamic report
@@ -59,7 +59,7 @@ OR
   + reports using model fit with admb
 - Version Control
   + basic concepts
-  + intro to git
+  + introduction to git
   + example using git and a scaa
   + Integrating git with sweave
 
@@ -162,10 +162,8 @@ sweave/knittR
     - figures
     - .git
 
-
     
 *** intro to git
-
     
 *** resources
 - py video
@@ -174,5 +172,5 @@ sweave/knittR
 - paper on reproducablity and openness
 - git
 - sweave
-- knitter
+- knitr
 
