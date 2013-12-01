@@ -1,4 +1,4 @@
-#+TITLE: QFC Reproducible Research Workshop - Software Setup
+#+BEAMER_HEADER_EXTRA: \title[QFC Reproducible Research Workshop]{QFC Reproducible Research Workshop - Software Setup}
 #+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
 #+DATE: December 11-12, 2013.
 #+DESCRIPTION: 
@@ -29,22 +29,24 @@
 
 
 * Installed Software
-- these set up instructions assume that you have working
-  installations of the following software packages:
-  - R  ([[http://www.r-project.org]])
-  - ADMB  ([[http://admb-project.org/]])  
-  - LaTeX
-    - proTeXt ([[http://www.tug.org/protext/]]) or MiKTex ([[http://www.miktex.org/]]) on widows
-    - MacTex ([[http://www.tug.org/mactex/]]) on a mac 
-    - Tex Live ([[http://www.tug.org/texlive/]]) on linux
-  - git ([[http://git-scm.com/]])
+These set up instructions will:
+1. verify that you have working installations of the following software packages:
+   - R  ([[http://www.r-project.org]])
+   - ADMB  ([[http://admb-project.org/]])  
+   - LaTeX
+     - proTeXt ([[http://www.tug.org/protext/]]) or MiKTex ([[http://www.miktex.org/]]) on widows
+     - MacTex ([[http://www.tug.org/mactex/]]) on a mac 
+     - Tex Live ([[http://www.tug.org/texlive/]]) on linux
+   - git ([[http://git-scm.com/]])
+2. Configure emacs and verify functionality
 
 * Set up
 - a zip file has been provided that contains all of the
   configurations files and additional packages needed for the workshop
 - unzip the contents of the archive to a convenient location and note
   the path
-- replace '~' in the remaining slides with your path
+- in the remaining slides, substitute '~' with the path to the
+  workshop folder on your computer
 
 * What's in the zip?
 - emacs executable
@@ -58,25 +60,30 @@
 - associated utility files
 
 * Set up - emacs
-- navigate to ~/workshop 
+- navigate to =~/workshop=
 - double click 'emacs.bat' to start emacs (ignore warnings for now)
-- from within emacs open the .emacs file located in the ~/workshop directory
-- edit line 5 of .emacs to reflect location of the
-  "~/workshop/emacs/" directory on your computer
-- save the .emacs file and close emacs
-- re-open emacs by double clicking on emacs.bat - the warning should
-  be gone
-
+- from within emacs open the ~.emacs~ file located in the =~/workshop= directory
+- edit line 5 of ~.emacs~ to reflect location of the
+  =~/workshop/emacs= directory on your computer
+- save the ~.emacs~ file and close emacs
+- re-open emacs by double clicking on emacs.bat 
+  + the warnings should be gone
 
 * Tests
 - each of following slides assume that you have a command prompt
-  open.  
-  + The top line indicates what you need to type, 
-  + the body of the slide indicates what you should see if you were
-    successful (a ... indicates that the output presented here has
-    been trimmed)
-  + if a bottom line is present on the slide (eg. 'q()'), it will indicate the
-    command needed to return to the prompt
+  open and will look like: 
+
+** > <command to type>                                              :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+  + The top line of the panel indicates what you need to type at the prompt, 
+  + the body of the panel indicates what you should see if you were
+    successful 
+    + a ... indicates that the output presented here has been trimmed
+  + if there are lines below the ... (eg. ~q()~), they indicate the
+    command(s) needed to return to the prompt
 
 * Tests (cont'd)
 
@@ -84,11 +91,11 @@
   external command" the software may not be installed or configured
   properly - please consult the documentation for that software
 
-- open emacs and type M-x shell ret
-  + (Alt + x key, followed by s-h-e-l-l RETURN)
-- a new buffer named **shell** should open
-- at the command prompt (>) type:
-
+- open a command prompt or open emacs and type ~Alt-x shell ret~
+  + (~Alt + x~ key, followed by ~s-h-e-l-l <RETURN>~)
+- a new buffer named ~**shell**~ should open
+- at the command prompt (~>~) type:
+  
 * Tests - Git
 ** > git							    :B_block:
     :PROPERTIES:
@@ -162,7 +169,6 @@ q()
 latex
 This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 **
-
 ...
 
 \end
@@ -172,16 +178,16 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 
 
    
-* Set up - R-packages
+* R-Packages
   
-- the following packages will be used in the workshop
+- the following R-packages will be used in the workshop
   + knitr (and/or sweave)
   + reshape2
   + xtable
   + Hmisc
-  + ADMButils (not available on CRAN, see ~/utils/Rpackages)
+  + ADMButils (not available on CRAN, but see =~/utils/Rpackages=)
     
-** In R:							    :B_block:
+** In R type:                                                       :B_block:
     :PROPERTIES:
     :BEAMER_env: block
     :END:
@@ -191,11 +197,55 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 #+end_src
                      
 
+* Setting up the ADMB-ide
+
+- edit paths in =~/workshop/emacs/SetADMBpaths.bat= 
+  + ~ADMB_HOME~ is the directory that contains
+    ~bin~, ~examples~, ~include~, and ~lib~ subdirectories associated
+    with your ADMB installation
+  + ~CPP_COMPILER~ is the path to the ~/bin~ directory of your C++ compiler  
+
+- copy  =~/workshop/utils/admb2r.cpp= to ~ADMB_HOME/include/admb2r.cpp~
 
 
-* Set up - ADMB
+* Test emacs configuration
+** R
+- in emacs type ~Alt-x R <RETURN>~
+- accept the default working directory
+  + An active R-prompt should appear in a new buffer named ~*R*~
+- open file =~/tests/test.r=
+- in the test file, place your cursor immediately after ~rtemp1~ and
+  press ~<TAB>~
+  + a blank R-template should appear in the buffer
 
-- edit paths in ~/workshop/emacs/SetADMBpaths.bat to reflect location
-  of your admb installation and path to your compiler
-- copy ~/workshop/utils/admb2r.cpp to ADMB\_HOME/include/admb2r.cpp
+* Test emacs configuration (cont'd)
+** R
+- highlight the line in ~test.r~ that contains ~print(1:9)~ and type ~Ctrl-<enter>~
+- the numbers 1 to 9 should appear in the *R* buffer
+- type ~Ctrl-k~ to close (kill) ~test.r~
+- type ~y~ when emacs asks you if you are sure 
+- type ~q()~ at the R-prompt to quit R
+
+
+* Test emacs configuration (cont'd)
+** ADMB-ide
+- open the file =~/tests/simple/simple.tpl=
+- type ~<F8>~ to link and compile the simple model
+- once the model is compiled, type ~<F9>~ to run the model
+- standard ADMB output should appear in a buffer 
+
+* Test emacs configuration (cont'd)
+** git
+- type ~Ctrl-c Ctrl-g~
+- emacs should prompt you for a Git repository
+- type ~Ctrl-g~ to quit
+
+** ispell
+- open a new buffer and cut and paste some text (preferably with at
+  least one spelling mistake)
+- type ~Alt-x ispell <RETURN>~
+- suggestions for mis-spelled should be provided
+- type ~Ctrl-g~ to quit
+
+
 

@@ -1,135 +1,343 @@
+#+BEAMER_HEADER_EXTRA: \title[Intro to emacs]{A Minimal Introduction to emacs}
+#+BEAMER_HEADER_EXTRA: \subtitle{(Only what you'll need to know for this workshop)}
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: %\setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+
+#+BEAMER_FRAME_LEVEL: 1
 
 
 
-* Intro To Emacs
-what is it?
-- open source, extensible text editor
-- so much more than text editor
-- one stop shop - 
+* What is emacs?
 
-Notation
+- open source, extendable, customizable text editor
+- cross platform: versions for mac, windows, linux
+- originally released more than 30 yrs ago, still under active development
+- widely used in computer science community
+- much more than a simple text editor or ide for ADMB
+
+* emacs - the one stop shop
+- extremely powerful text editing capabilities
+  - cutting and inserting blocks
+  - global search and replace - plane text and regular expressions
+- extensions and add-in for just about anything:
+  - virtually any computer language
+  - presentations (like this one)
+  - spell checker
+  - calendars and agenda's
+  - news reader and e-mail client
+  - html browser
+  - etc, etc, etc,
+* emacs - the one stop shop (cont'd)
+- excellent support for:
+  - admb - (Arni Magnusson's excellent admb-ide package)
+  - R - (ESS - emacs speaks statistics)
+  - \LaTeX - (built in)
+  - git - (magit)
+
+* Idiosyncrasies
+- not for everyone
+- does have some odd behaviour that can frustrate new users
+- especially ~Ctrl-c~ and ~Ctrl-x~
+  + 'copy' and 'cut' in most applications
+  + keyboard prefixes in emacs
+- can be changed (Options -> Use CUA keys)
+  + not recommended - ~Ctrl-c~ and ~Ctrl-x~ used by so many packages 
+  + persistence pays off
 
 
+* Keyboard Short-cuts
+- interaction with emacs keyboard centric
+- most commands can be or are associated with key strokes
+- ~M-~  -> meta key (Alt on most keyboards)
+- ~C-~  -> control key 
+- keystokes are often combined
+ | ~C-x f~   | -> | open file          |
+ | ~C-x s~   | -> | save file          |
+ | ~C-x k~   | -> | close current file |
+ | ~C-x C-c~ | -> | close emacs        |
 
-
-finding opening and closing files
-editing basics
 
 * Buffers
-navigating
+- main containers in emacs
+- when you open a file, it's contents are displayed in a buffer
+- start R within emacs, it creates an interactive buffer that
+  contains the R prompt
+- compile and run admb programs, the output is captured in a buffer
+- multiple buffers can be open at once 
+** mini-buffer
+- small one-line buffer at the bottom of emacs interface
+- sending commands to emacs (~M-x~)
+- displaying messages from emacs (e.g. - try ~C-x s~)
 
 * Modes
 - modes give emacs incredible flexibility
-- different modes impart different behaviour
+- different modes impart different behavior
 - one major mode per buffer*
   + basic functionality
 - multiple minor modes per buffer
+- mode information presented in mode line located at bottom buffer
+
 
 * Major Modes
-- major mode automatically determined by file extension
-- ESS
-- AMDB
-- Latex
-- noweb*
-- html
+** major mode automatically determined by file extension            :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| file extension | major mode          |
+|----------------+---------------------|
+| ~*.tpl~        | ~ADMB~              |
+| ~*.dat~        | ~perl~              |
+| ~*.r~          | ~ESS[S]~            |
+| ~*.tex~        | ~LaTeX~             |
+| ~*.html~       | ~HTML~              |
+| ~*.rnw~        | ~LaTeX~ OR ~ESS[S]~ |
 
+- try some and see.
 
 * Minor Modes
-- yas yassnippet
-- ac auto complete
-- hl-p
+** minor modes provide additional functionality                     :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| file extension | major mode | minor modes                    |
+|----------------+------------+--------------------------------|
+| ~*.tpl~        | ~ADMB~     | ~hl-p yas~                     |
+| ~*.dat~        | ~perl~     | ~AC yas~                       |
+| ~*.r~          | ~ESS[S]~   | ~AC hl-p yas ElDoc~            |
+| ~*.tex~        | ~LaTeX~    | ~hl-p yas~                     |
+| ~*.html~       | ~HTML~     | ~yas~                          |
+| ~*.rnw~        | ~LaTeX~    | ~hl-p yas Noweb NWFL~          |
+| ~*.rnw~        | ~ESS[S]~   | ~AC hl-p yas ElDoc Noweb NWFL~ |
+
+** minor modes used throughout workshop                             :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| ~yas~  | yasnippet             |
+| ~AC~   | auto complete         |
+| ~hl-p~ | highlight parentheses |
+
 
 
 * Standard emacs shortcuts
 
-C-h m  - describe mode - shows all key binding for a mode
-
-C-w cut
-M-w copy 
-C-y paste
-C-x _ undo
-
-C-x f open buffer
-C-x k close buffer
-C-x s save buffer
-C-x w save_as file
-
-C-x o other buffer
-C-x b switch to buffer 
-C-x C-b buffer list
-
-C-x 1 one window
-C-x 2 split horizontally
-C-x 3 split vertically
-
-M-q wrap text
-
-M-%  search and replace
-C-M-%  search and replace using regular expressions
+** Basics                                                     :BMCOL:B_block:
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+| ~C-w~   | cut           |
+| ~M-w~   | copy          |
+| ~C-y~   | paste (yank)  |
+| ~C-x _~ | undo          |
+| ~C-x f~ | open buffer   |
+| ~C-x k~ | close buffer  |
+| ~C-x s~ | save buffer   |
+| ~C-x w~ | save\_as      |
 
 
+** Buffer Navigation                                          :BMCOL:B_block:
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+
+| ~C-x 1~   | one window         |
+| ~C-x 2~   | split horizontally |
+| ~C-x 3~   | split vertically   |
+| ~C-x o~   | other buffer       |
+| ~C-x b~   | switch to buffer   |
+| ~C-x C-b~ | buffer list        |
+
+
+* Other Handy Shortcuts
+
+** Some Others                                                      :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| ~C-h m~ | describe mode - shows all key bindings for a mode  |
+| ~C-h t~ | emacs tutorial - tedious but highly recommended    |
+| ~C-g~   | cancel                                             |
+| ~M-q~   | wrap text                                          |
+| ~C-s~   | search forward                                     |
+| ~C-r~   | search in reverse                                  |
+| ~M-%~   | search and replace                                 |
+| ~C-M-%~ | search and replace using regular expressions       |
+| ~C-SPC~ | set/unset point                                    |
+
+
+* Customization
+- emacs is configured with .emacs file in your HOME directory and
+  (normally) contents of =~/.emacs.d= directory
+- 'dot' files and directories may be hidden by default 
+- special configurations have been provided for workshop
+- =~/workshop/emacs.bat= starts emacs with specific configuration
+  file 
+- (review [[C:\Users\cottrillad\Desktop\workshop\.emacs][\sim/workshop/.emacs]] file)
+ 
 * custom global shortcuts
-- F3  - refresh file from disk
-- M-x now - insert time-stamp at point
-- C-c z copy full path
-- M-\ swap slashes
-- C-x C-r open recent files
+These custom shortcuts have been provided in the configuration file
+for this workshop
+** Custom Shortcuts                                                 :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| ~F3~      | refresh file from disk     |
+| ~M-x now~ | insert time-stamp at point |
+| ~C-c z~   | copy full path             |
+| ~M-\~     | swap slashes               |
+| ~C-x C-r~ | open recent files          |
+| ~C->~     | insert string rectangle    |
+| ~C-x r k~ | kill string rectangle      |
 
-- C-> insert string rectangle
-- C-x r k kill string rectangle
 
 
 
 
 
 
-* items below this point can be introduced as needed.
 * Ispell
 
-M-x ispell
-<space> to skip
-[#] to select suggestion
-- selected region or whole buffer (from point)
+- workshop configuration provides spell checker for emacs using  aspell.exe 
+- checks selected region or whole buffer
+- better than most 'canned' spell checkers
+- configured to skip R-code in knitr documents
+
+** Basic ispell usage                                               :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| ~M-x ispell <return>~ | start ispell                    |
+| ~<space>~             | to skip selected word           |
+| ~[#]~                 | to select suggestion            |
+| ~a~                   | accept for this session         |
+| ~i~                   | insert into personal dictionary |
+| ~?~                   | for more options                |
+
 
 * Yasnippet
 
--'yet another snippet'
-- inserts mode/context specific snippets
-- snippets for R, latex, sweave, admb
-- try it
++ 'yet another snippet extension' ([[https://github.com/capitaomorte/yasnippet]]) 
++ inserts mode/context specific snippets
++ hundreds of snippets on the web
++ relatively simple to write custom snippets
+  + [[http://capitaomorte.github.io/yasnippet/snippet-development.html][~/yasnippet/snippet-development.html]]
++ snippets for ~R~, \LaTeX, ~sweave~ / ~knitr~, ~admb~ provided in workshop configuration
++ try it
 
 * autocomplete
-- provides context specific options
+
+** Autocomplete                                       :BMCOL:B_ignoreheading:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :BEAMER_col: 0.4
+   :END:
+
+- minor mode that provides context specific options for word or
+  command at point
 - pop-up menu
   + arrows to navigate
   + return to select
+   
+** Figure                                             :BMCOL:B_ignoreheading:
+   :PROPERTIES:
+   :BEAMER_col: 0.6
+   :BEAMER_env: ignoreheading
+   :END:
+   #+latex:\includegraphics[width=\textwidth]{autocomplete}
 
 
-* ADMB 
-F8 - tpl2cpp - compile - link
-F9 - run model
+* ADMB-ide
+- emacs extension for AD model builder
+- default installation is aggressive
+- workshop configuration associates admb mode with tpl files
+
+** some useful ADMB key bindings                                    :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+ 
+| F8      | -> | tpl2cpp - compile - link |
+| F9      | -> | run model                |
+| C-c C-a | -> | admb-run-args            |
+| C-c C-e | -> | admb-cor                 |
+| C-c C-p | -> | admb-par                 |
+| C-c TAB | -> | admb-pin                 |
+| C-c C-r | -> | admb-rep                 |
+
+- in a ~*.tpl~ file type ~C-h m~ to see them all
 
 
 * ESS
 
+- emacs extension for working with statistical applications
+- ESS - acronym for *E*macs *S*peaks *S*tatistics
+- support for R, S, SAS, Stata, jags
 
-C-c C-r send region
-C-<return>  send region
+** Helpful ESS key bindings                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+ 
+| \_      | -> | underscore automatically inserts ' <- '           |
+| C-c C-b | -> | ess-eval-buffer                                   |
+| C-c C-f | -> | ess-eval-function                                 |
+| C-c C-j | -> | ess-eval-line                                     |
+| C-c C-l | -> | ess-load-file                                     |
+| C-c C-n | -> | ess-eval-line-and-step                            |
+| C-c C-r | -> | ess-eval-region                                   |
 
+- in a ~*.r~ file type ~C-h m~ to see them all
+  
 * Knitr/Sweave
 
-- *.rnw and *.rhtml files
+- ess supports both knitr and sweave
+- automatically available in ~*.rnw~ files 
+  + (~*.rmd~ and ~*.rhtml~ files too)
 
-- M-r  knit
-- M-s  sweave
-- M-P  generate pdf
+** knitr/sweave key bindings                                        :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
 
-* Additional config options
-- cut-paste-copy short cuts
-- auto complete
-- instert string rectangle
+| M-r | -> | knit         |
+| M-s | -> | sweave       |
+| M-P | -> | generate from tex file pdf |
+
++ NOTE - uppercase 'P' to generate pdf
 
 
+* Addition Resources and Further Reading
+
++ emacs manuals: [[http://www.gnu.org/software/emacs/manual/]]
+
++ emacs-fu: http://emacs-fu.blogspot.ca/
+
++ Xah emacs: [[http://ergoemacs.org/emacs/emacs.html]]
 
 
 * Recap

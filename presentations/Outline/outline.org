@@ -1,0 +1,109 @@
+#+BEAMER_HEADER_EXTRA: \title[Outline and Introduction]{R, knitr, ADMB and Reproducible Research in Fisheries Science}
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+AUTHOR: Quantitative Fisheries Center, Michigan State University
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+
+#+BEAMER_FRAME_LEVEL: 1
+
+
+* Introductions
+
+  
+* Workshop Objectives
+
+- introduce concept of reproducible research
+- introduce software tools and methods of work that are consistent
+  with reproducible research
+- provide an understanding of what each tool is doing and
+  how they fit together
+- provide worked examples that can be adapted to real-world analysis
+
+* Workshop Approach
+- incrementally introduce tools and basic usage
+- presentations and discussions followed by exercises
+- applied - lots of examples
+- most examples incrementally build on earlier examples
+- some bonus examples: 
+  + presentations
+  + markdown to htlm
+  + emacs org-mode/babel
+   
+* Software requirements
++ installed and basic knowledge of 
+  - AD Model Builder 
+  - R
++ installed:
+  + \LaTeX
+  + sweave/knittr
+  + git 
++ Integrated Development Environment:
+  + emacs with admb-ide, ESS, magit (see workshop configuration)
+OR
+  + Rstudio, an admb-ide, and git-gui 
+
+* Course Materials
+- working environment:
+  - my public dropbox
+- presentations:
+  - github =qfc_workshop/presentations=
+    + ~git clone qfc_workshop/presentations~
+- examples:
+  - github =qfc_workshop/examples=
+    + ~git clone qfc_workshop/examples~
+
+* Workshop Outline
+- Introduction
+- Reproducible Research  
+  + the philosophy and basic ideas
+- Verify Software Setup
+- Introduction to emacs
+  + exercises to introduce emacs and verify configuration
+- Introduction to \LaTeX
+  + review basic structure of \LaTeX  document
+  + create our first report
+* Workshop Outline (cont'd)
+- Sweave/knitr
+  + what is sweave? what is knitr?
+  + create our first dynamic report
+  + more complicated reports:
+    + multiple tables
+    + multiple figures
+    + references
+    + abstract
+    + presentation
+    + multiple chapters
+* Workshop Outline (cont'd)
+- AMDB and knitr
+  + communicating between ADMB and R
+  + admb2R
+  + ADMButils
+  + reports using a model fit with ADMB
+- Version Control
+  + basic concepts
+  + introduction to git
+  + example using git and a scaa
+  + Integrating git with knitr
+

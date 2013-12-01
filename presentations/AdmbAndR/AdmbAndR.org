@@ -1,4 +1,4 @@
-#+TITLE: Knitr??  What about Sweave?
+#+TITLE: ADMB, R and knitr
 #+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
 #+DATE: December 11-12, 2013.
 #+DESCRIPTION: 
@@ -17,7 +17,7 @@
 #+LaTeX_CLASS_OPTIONS: [bigger]
 
 #+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
-#+latex_header: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
 #+latex_header: \setbeamersize{text margin left=10mm} 
 #+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
 #+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 

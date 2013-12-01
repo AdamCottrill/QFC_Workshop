@@ -1,0 +1,110 @@
+#+BEAMER_HEADER_EXTRA: \title[Reproducible Research]{Introduction to Reproducible Research}
+#+MACRO: BEAMERINSTITUTE Ontario Ministry of Natural Resources, Upper Great Lakes Management Unit.
+#+AUTHOR: Quantitative Fisheries Center, Michigan State University
+#+DATE: December 11-12, 2013.
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT: 
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [bigger]
+
+#+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
+#+latex_header: %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: \setbeamersize{text margin left=10mm} 
+#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \graphicspath{{figures/}}
+
+
+#+BEAMER_FRAME_LEVEL: 1
+
+* Motivation
+
+** Practical
+
+** Philosophical
+
+
+* Reproducible Research
+- what is reproducible research
+- how it is changing science - gold standard for open, transparent
+  and credible science
+- MORE ...
+
+* Typical Work Flow
+
+** Typical Work Flow                                  :BMCOL:B_ignoreheading:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :BEAMER_col: 0.6
+   :END:
+   
+- separate files for each stage of process:
+  + data cleaning and preparation
+  + model fitting and analysis
+  + summarization and reporting
+- lots of clicking and copy-paste
+- often uses proprietary binary file format (.ppt, .doc, .xls) that
+  is difficult to 'version'
+- tedious, error prone, difficult or impossible to replicate exactly
+
+
+** Figure                                    :BMCOL:B_figure:B_ignoreheading:
+   :PROPERTIES:
+   :BEAMER_col: 0.4
+   :BEAMER_env: figure
+   :END:
+   #+latex:\includegraphics[width=\textwidth]{typicalworkflow}
+
+
+* But what if ...
+- I make a small change to data?
+- I have multiple reports?
+- I want to implement complicated model improvements that might break everything?
+- I need to find data and exact model or source code that created a report
+- I need to work collaborative with an other analyst?
+    + How do I know *exactly* what's changed?
+    + How do I integrate their changes with my changes?
+
+
+* Reproducible Research
+
+- provides an alternative method of work that avoids many of these problems
+- Literate Programing
+- Donald Knuth
+- more recently...
+
+* An Alternative Work-flow
+
+- all preparation, analysis, reporting done in simple text files
+- results from analysis integrated directly into reporting products -
+  reports, presentations, html documents
+- reports automatically regenerated when data changes
+- no undocumented figures, tables or results
+
+* An Alternative Work-flow (cont'd)
+
+- no undocumented clicking or cutting and pasting 
+- version control software keeps track of changes
+  + reset directory to past states
+  + compare changes from one state to another
+  + branching and merging allow 'safe' development
+
+
+* Further Reading and Resources
+
++ Oxford Scientific Journals:
+http://biostatistics.oxfordjournals.org/content/10/3/405.full
+
++ R's Reproducible Research Task page:
+http://cran.r-project.org/web/views/ReproducibleResearch.html

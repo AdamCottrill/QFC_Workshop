@@ -215,7 +215,7 @@ Your abstract goes here...
 
 * Resources
 
-- Official Repositry of \Latex packages: 
+- Official Repository of \Latex packages: 
 
 [[http://www.ctan.org/]]
 
@@ -224,7 +224,10 @@ Your abstract goes here...
 
 - symbols
 
-- Tex Exchange
-
+- TexStackExchange (similar to stackoverflow.com)
+[[http://tex.stackexchange.com/]]
 
 * Recap
+
+
+

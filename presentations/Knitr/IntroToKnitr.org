@@ -17,9 +17,9 @@
 #+LaTeX_CLASS_OPTIONS: [bigger]
 
 #+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
-#+latex_header: \usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
+#+latex_header: %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
 #+latex_header: \setbeamersize{text margin left=10mm} 
-#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: %\setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
 #+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
 
 #+latex_header: \graphicspath{{figures/}}
@@ -97,6 +97,16 @@
 - first approach is probably adequate
 
 * Von Bert example
+
+
+* knitr template
+- yassnippet template has been provided in workshop configuration
+- attempts to provide sensible default styles and options:
+  + cjfas bibliography style
+  + sets figure directory in both \LaTeX and R
+  + helper functions
+  + running headers and footers
++ in emacs createa new  *.rnw file and type ~knitr<TAB>~
 
 
 * Is it worth it?
