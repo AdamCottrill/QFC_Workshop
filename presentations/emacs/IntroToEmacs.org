@@ -245,12 +245,12 @@ for this workshop
 + inserts mode/context specific snippets
 + hundreds of snippets on the web
 + relatively simple to write custom snippets
-  + [[http://capitaomorte.github.io/yasnippet/snippet-development.html][~/yasnippet/snippet-development.html]]
-+ snippets for ~R~, \LaTeX, ~sweave~ / ~knitr~, ~admb~ provided in workshop configuration
+  + [[http://capitaomorte.github.io/yasnippet/snippet-development.html][\sim/yasnippet/snippet-development.html]]
++ snippets for ~R~, \LaTeX, ~sweave~ / ~knitr~, and ~admb~ provided in workshop configuration
 + try it
 
 * autocomplete
-
+  
 ** Autocomplete                                       :BMCOL:B_ignoreheading:
    :PROPERTIES:
    :BEAMER_env: ignoreheading

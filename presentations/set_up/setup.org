@@ -91,7 +91,7 @@ These set up instructions will:
   external command" the software may not be installed or configured
   properly - please consult the documentation for that software
 
-- open a command prompt or open emacs and type ~Alt-x shell ret~
+- open a command prompt or open emacs and type ~Alt-x shell <return>~
   + (~Alt + x~ key, followed by ~s-h-e-l-l <RETURN>~)
 - a new buffer named ~**shell**~ should open
 - at the command prompt (~>~) type:
@@ -230,8 +230,8 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 * Test emacs configuration (cont'd)
 ** ADMB-ide
 - open the file =~/tests/simple/simple.tpl=
-- type ~<F8>~ to link and compile the simple model
-- once the model is compiled, type ~<F9>~ to run the model
+- press ~<F8>~ to link and compile the simple model
+- once the model is compiled, press ~<F9>~ to run the model
 - standard ADMB output should appear in a buffer 
 
 * Test emacs configuration (cont'd)

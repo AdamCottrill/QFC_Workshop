@@ -186,6 +186,11 @@ than lake trout but grow slower than yellow perch and faster than lake
 trout.  These findings are largely consistent with previous on Lake
 Huron lake whitefish including....
 
+\cite{.} 
+
+\bibliographystyle{cjfas}
+\bibliography{./references}
+
 
 \clearpage
 \section*{References}
@@ -200,6 +205,5 @@ Haddon, M. Modelling and Quantitative Methods in Fisheries, Second Edition, Tayl
 Quinn, T.J and R. B. Deriso. Quantitative Fish Dynamics, New York:Oxford Univiversity Press, 1999. 542 pages.
 
 
-
-
 \end{document}
+
