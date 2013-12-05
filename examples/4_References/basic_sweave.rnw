@@ -13,6 +13,10 @@
 \hypersetup{
  pdfstartview={XYZ null null 1}}
 \usepackage{breakurl}
+
+\usepackage[numbers]{natbib}			
+\bibpunct{(}{)}{;}{a}{,}{,}
+
 \begin{document}
 
 <<label=setup, include=FALSE>>=
@@ -29,32 +33,20 @@ options(replace.assign=TRUE, width=90)
 
 \graphicspath{{\Sexpr{fig.path}}}
 
-
 \title{Von Bertalanfy growth curve for lake whitefish sample from
        southern Lake Huron in 2009}
-
 
 \author{Bob Sakamano}
 
 \maketitle
 
-
-\section*{Abstract}
-\label{sec:abstract}
-
-A von Bertalanfy growth curve was fit to Lake Whitefish (Coregonus
-clupeaformis) sampled from southern Lake Huron in 2009.  Lake
-whitefish were collected from the commerical fishery as well as the
-independent survey conducted by the Ontario Ministry of Natural
-resources.  A total of 111 lake whitefish were include in the sample.
-The Von Bertalanfy growth parameters estimated using non-linar least
-squares where Linf= 600 $\pm$ 20, k = 0.25 $\pm$ 0.10, and t0= 0.1
-$\pm$ 0.02.
+\begin{abstract}
+  \input{abstract}  
+\end{abstract}
 
 <<label=get_the_data, include=FALSE>>=
 
 wfdata <- read.csv('whitefish.csv', header=TRUE)
-
 ages <-  unique(wfdata$AGE)
 
 @
@@ -85,8 +77,6 @@ predicted <- data.frame('AGE' = seq((min(ages) -1),
                            max(ages) + 1, by=0.1), 'FLEN'=0)
 
 predicted$FLEN <- predict(vonB, newdata=predicted)
-
-
 
 @
 
@@ -140,8 +130,7 @@ is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
 The starting value for the asymptotic length was taken as the maximum
 observed fork length in the sample, while $t0$ and $k$ were arbitrarily
 set to 0.0 and 0.25 respectively.  The methods used in this analysis
-closely follow those described in Quinn and Deriso (1999) and Haddon
-(2001).
+closely follow those described in \citet{2246} and \citet{2374}.
 
 \section*{Results}
 \label{sec:results}
@@ -184,21 +173,15 @@ Older Lake Whitefish are smaller than younger.  Lake Whitefish from
 souther Lake Huron appear to be bigger than yellow perch and smaller
 than lake trout but grow slower than yellow perch and faster than lake
 trout.  These findings are largely consistent with previous on Lake
-Huron Lake Whitefish including....
+Huron Lake Whitefish including by ....
 
+<<label=SweaveAnAbstrast, include=FALSE, echo=FALSE>>=
+  #R code here:
+  knit(input="abstract.rnw", output="abstract.tex")
+@
 
-\clearpage
-\section*{References}
-\label{sec:references}
-
-\vspace{5 mm}
-
-Haddon, M. Modelling and Quantitative Methods in Fisheries, Second Edition, Taylor and Francis, 2001. 424 pages.
-
-\vspace{5 mm}
-
-Quinn, T.J and R. B. Deriso. Quantitative Fish Dynamics, New York:Oxford Univiversity Press, 1999. 542 pages.
-
+\bibliographystyle{cjfas} 
+\bibliography{references}
 
 \end{document}
 

@@ -65,20 +65,25 @@
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
+
+
+
 \graphicspath{{figures/}}
 
 
 \title{Von Bertalanfy growth curve for lake whitefish sample from
        southern Lake Huron in 2009}
 
+
 \author{Bob Sakamano}
 
 \maketitle
 
+
 \section*{Abstract}
 \label{sec:abstract}
 
-A von Bertalanfy growth curve was fit to Lake whitefish (Coregonus
+A von Bertalanfy growth curve was fit to Lake Whitefish (Coregonus
 clupeaformis) sampled from southern Lake Huron in 2009.  Lake
 whitefish were collected from the commerical fishery as well as the
 independent survey conducted by the Ontario Ministry of Natural
@@ -86,6 +91,9 @@ resources.  A total of 111 lake whitefish were include in the sample.
 The Von Bertalanfy growth parameters estimated using non-linar least
 squares where Linf= 600 $\pm$ 20, k = 0.25 $\pm$ 0.10, and t0= 0.1
 $\pm$ 0.02.
+
+
+
 
 
 \section*{Introduction}
@@ -113,7 +121,7 @@ the knitr package.
 \subsection*{The Data}
 \label{sub:the_data}
 
-Lake whitefish collected from both the commercial fishery and the
+Lake Whitefish collected from both the commercial fishery and the
 OMNR's offshore index program in 2009 were randomly selected for
 inclusion in this report.  Only fish with both a fork length (mm) and
 age estimate were considered to be eligible.  The sample used in is
@@ -131,7 +139,7 @@ observed data:
 L_i = L_{inf} (1 - e^{-k(t_i-t_0)}) + e_i
 \end{equation}
 
-$L_i$ is the length of the $i^{th}$ fish at age $t_i$, $Linf$ is the
+where $L_i$ is the length of the $i^{th}$ fish at age $t_i$, $Linf$ is the
 asymptotic length (in mm), $k$ is the Brody growth coefficient, $t0$
 is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
 The starting value for the asymptotic length was taken as the maximum
@@ -148,13 +156,13 @@ The mean size at each age is summarized in table \ref{tbl:size-at-age}
 The Von Bertalanffy model appeared to fit the data well.  Parameter
 estimates and confidence intervals are presented in table
 \ref{tbl:estimates} and a plot illustrating the fitted curve against
-observed mean size at age has been provided \ref{fig:fit}.
+observed mean size at age has been provided \ref{fig:plot_fit}.
 
 \begin{figure}
   \begin{center} 
      \includegraphics[width=\textwidth]{plot_fit} 
   \end{center} 
-  \caption{Mean size at age of a sub-sample of lake whitefish
+  \caption{Mean size at age of a sub-sample of Lake Whitefish
     collected from southern Lake Huron in 2009.  The blue line
     respresents a Von Bertalanffy growth curve fit to the data using
     non-linear least squared.}
@@ -163,7 +171,7 @@ observed mean size at age has been provided \ref{fig:fit}.
 
 
 % latex table generated in R 3.0.1 by xtable 1.7-1 package
-% Tue Nov 19 16:36:26 2013
+% Wed Dec 04 13:57:58 2013
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -184,14 +192,14 @@ observed mean size at age has been provided \ref{fig:fit}.
   12 &  12 & 527.00 & 537.46 \\ 
    \hline
 \end{tabular}
-\caption{Observed and predicted size at age of lake whitefish sample from southern Lake Huron in 2009.} 
+\caption{Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009.} 
 \label{tbl:size-at-age}
 \end{table}
 
 
 
 % latex table generated in R 3.0.1 by xtable 1.7-1 package
-% Tue Nov 19 16:36:26 2013
+% Wed Dec 04 13:57:58 2013
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrr}
@@ -213,11 +221,16 @@ observed mean size at age has been provided \ref{fig:fit}.
 \section*{Discussion}
 \label{sec:discussion}
 
-Older lake whitefish are smaller than younger.  Lake whitefish from
+Older Lake Whitefish are smaller than younger.  Lake Whitefish from
 souther Lake Huron appear to be bigger than yellow perch and smaller
 than lake trout but grow slower than yellow perch and faster than lake
 trout.  These findings are largely consistent with previous on Lake
-Huron lake whitefish including....
+Huron Lake Whitefish including....
+
+\cite{.} 
+
+\bibliographystyle{cjfas}
+\bibliography{./references}
 
 
 \clearpage
@@ -233,6 +246,5 @@ Haddon, M. Modelling and Quantitative Methods in Fisheries, Second Edition, Tayl
 Quinn, T.J and R. B. Deriso. Quantitative Fish Dynamics, New York:Oxford Univiversity Press, 1999. 542 pages.
 
 
-
-
 \end{document}
+

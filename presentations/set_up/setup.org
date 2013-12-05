@@ -27,8 +27,7 @@
 
 #+BEAMER_FRAME_LEVEL: 1
 
-
-* Installed Software
+* Installed Software  
 These set up instructions will:
 1. verify that you have working installations of the following software packages:
    - R  ([[http://www.r-project.org]])
@@ -39,6 +38,21 @@ These set up instructions will:
      - Tex Live ([[http://www.tug.org/texlive/]]) on linux
    - git ([[http://git-scm.com/]])
 2. Configure emacs and verify functionality
+
+* when installing git
+- select 'Run Git from the Windows Command
+  Prompt'
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=0.7\textwidth]{gitsetup1}
+#+LATEX: \end{center}
+
+* When installing git
+- select 'Checkout Windows-style, commit Unix-style...'
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=0.7\textwidth]{gitsetup2}
+#+LATEX: \end{center}
+- select defaults for all remaining options
+             
 
 * Set up
 - a zip file has been provided that contains all of the

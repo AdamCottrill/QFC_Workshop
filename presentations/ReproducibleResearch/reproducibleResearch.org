@@ -130,8 +130,51 @@ Stanford University
 * An Alternative Work-flow (cont'd)
 
 #+LATEX: \begin{center}
+  #+latex:\includegraphics[width=\textwidth]{AlternativeWorkflow0}
+#+LATEX: \end{center}
+
+* An Alternative Work-flow (cont'd)
+
+#+LATEX: \begin{center}
   #+latex:\includegraphics[width=\textwidth]{AlternativeWorkflow}
 #+LATEX: \end{center}
+
+
+
+* 10 Simple Rules 
+From (Sandve et al. 2013):
+#+latex:\footnote{Sandve GK, Nekrutenko A, Taylor J, Hovig E (2013) Ten Simple Rules for Reproducible Computational Research. PLoS Comput Biol 9(10): e1003285. doi:10.1371/journal.pcbi.1003285}
+- For Every Result, Keep Track of How It Was Produced
+
+- Avoid Manual Data Manipulation Steps
+
+- Archive the Exact Versions of All External Programs Used
+
+- Version Control All Custom Scripts
+
+- Record All Intermediate Results, When Possible in
+  Standardized Formats
+
+
+
+
+
+* 10 Simple Rules (cont'd):
+From (Sandve et al. 2013):
+#+latex:\footnote{Sandve GK, Nekrutenko A, Taylor J, Hovig E (2013) Ten Simple Rules for Reproducible Computational Research. PLoS Comput Biol 9(10): e1003285. doi:10.1371/journal.pcbi.1003285}
+
+- For Analyses That Include Randomness, Note Underlying Random
+  Seeds
+
+- Always Store Raw Data behind Plots
+
+- Generate Hierarchical Analysis Output, Allowing Layers of
+  Increasing Detail to Be Inspected
+
+- Connect Textual Statements to Underlying Results
+
+- Provide Public Access to Scripts, Runs, and Results
+
 
 
 * Further Reading and Resources

@@ -1,0 +1,107 @@
+* Reproducible Research Workshop examples
+
+** DONE minimal_latex
+- this directory contains a minimal working latex document
+- verify that latex works and can compile a document to pdf.
+- from command line: pdflatex min.tex
+- in emacs: C-c C-c <enter>
+- <F10> (ac-view-pdf) to view resultant pdf
+
+** DONE basic_latex
+- this report contains the basic elements of a scientific paper.
+- it contains all of the basic sections (abstract, introduction,
+  materials and methods ect), a figure, some tables, and references.
+- there are also calculated or estimated values referenced in the text
+- the document itself is fine, it should compile into a 5-page
+  document, but it is not dynamic - infact given the markup required
+  to print latex it's worse than cutting an pasting from excel into word.
+
+** DONE basic_sweave
+- this example takes the basic latex report and makes it dynamic
+- all of the presented values are calculated, figures and tables are
+  generated from the data file
+- introduces concepts of chunks and \Sexpr{}
+
+** TODO sweave_chunk_options
+- this example is a bit of an aside and will demonstrate the effects
+  of some different chunk options.
+- include, figure, asis, etc
+
+** DONE Abstracts
+- abstracts present special challenges because they are at the
+  beginning of the document but need final results
+- introduce \include{} statement and chunk option to produce abstract.
+- a worked example can be found here: [[file:~/Misc/OrgFiles/JOURNAL.org::*Sweaving%20an%20Abstract][Sweaving an Abstract]]
+
+*** DONE References
+- don't spend a huge amount of time on this, but demonstrate that it
+  can be done.
+- need to activate reftex in .emacs
+- introduce Bibtex, reftex and natbib
+- replace static reference section with dynamic one
+- add more references and recreate document. 
+
+
+** DONE ReferenceAbstracts
+- references and abstracts present special challenges
+
+** dynamic sweave
+- given our basic sweave report, now lets make it more dynamic by
+  specifying year and basin were fitting
+- provide a data directory with data from three different basins and
+  two years
+- demonstrate how the report changes when different data is used.
+
+
+** more_sweave
+- more sweave concepts
+- illustrate chunk options
+- different ways to insert figures
+
+
+** MultiPartSweave
+- Multi part documents are easy to produce
+- one main rnw file
+  + document wide settings (toc, references ect)
+  + knitr() and \include{} for each section
+- create simple report with chapters fro whitefish, lake trout and
+  perch. One introduction, one conclusion, and common references.
+
+** Presentations
+- presentations can be easily created using the beamer package
+- create a quick presentation showing the basic information of the
+  report:
+  + title slide
+  + slide with introductory text (\Sexpr{})
+  + length histogram
+  + fitted curve
+  + summary table(s)
+
+** Sweave_ODBC
+- include an example of retrieving data from sqlite db instead of ms access.
+- use same sweave report, just repace read.csv with rodbc connect
+
+** DONE admb_r
+- demonstrate ways to get data back and forth between admb and R
+- no knitr
+- script that writes admb dat and pin files
+- reads par, std and makes values available in R
+
+
+** admb_sweave
+- take the last von bert report
+- move curve fitting out to admb
+- read data in R
+- write data and pin files
+- call admb
+- read_cxx() to get model estimates
+- present model estimates from cxx using knitr
+
+** adv_admb_report
+- real scaa example (AA_89)
+
+
+** git
+
+** extract_data
+readme.org
