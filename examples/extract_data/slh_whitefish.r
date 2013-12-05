@@ -22,12 +22,24 @@ library(reshape2)
 
 dbase <- c("E:/Data Warehouse/Merged Datasets/Species_Databases/Lake_Whitefish/091_United.mdb")
 
+qmas <- "'6-1'"
+#qmas <- "'5-8','5-9'"
+yr <- 2002
+basin <- switch(qmas,
+                "'6-1'"='nc',
+                "'4-5'"='smb',
+                'gb') 
+
+
 sql <- 
 "SELECT AGE, FLEN FROM All_BioData
 INNER JOIN [LOCATION with LATLONG] ON All_BioData.GRID = [LOCATION with LATLONG].GRID
-WHERE ((([LOCATION with LATLONG].QUOTA_ZONE)='4-5') AND ((All_BioData.YEAR)='2009') AND ((All_BioData.AGE) Is Not Null) AND ((All_BioData.FLEN) Is Not Null))
+WHERE ((([LOCATION with LATLONG].QUOTA_ZONE) IN (qmas)) AND ((All_BioData.YEAR)='yr') AND ((All_BioData.AGE) Is Not Null) AND ((All_BioData.FLEN) Is Not Null))
 ORDER BY All_BioData.AGE, All_BioData.FLEN;"
 
+
+sql <- gsub('yr', yr,  sql)
+sql <- gsub('qmas', qmas,  sql)
 
 
 DBConnection <- odbcConnectAccess(dbase,uid = "", pwd = "")
@@ -50,11 +62,21 @@ for (i in seq(along=ages)){
     }
 }
 
-fname <-
-    'c:/1work/Modelling/QFC_workshop/examples/extract_data/whitefish.csv'
+outdir <- 'c:/1work/Modelling/QFC_workshop/examples/extract_data/'
+fname <-paste0(outdir,'whitefish-',basin,'-', yr, '.csv')
+
+               
 jj <- selected[with(selected, order('AGE', 'FLEN')),]
 write.csv(selected, fname,row.names=FALSE)
 
+f <- function()
+{
+  ## Purpose:
+  ## ----------------------------------------------------------------------
+  ## Arguments:
+  ## ----------------------------------------------------------------------
+  ## Author: , Date:  5 Dec 2013, 14:54
+}
 
 
 library(reshape2)

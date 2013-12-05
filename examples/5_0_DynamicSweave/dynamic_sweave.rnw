@@ -13,6 +13,10 @@
 \hypersetup{
  pdfstartview={XYZ null null 1}}
 \usepackage{breakurl}
+
+\usepackage[numbers]{natbib}			
+\bibpunct{(}{)}{;}{a}{,}{,}
+
 \begin{document}
 
 <<label=setup, include=FALSE>>=
@@ -27,10 +31,29 @@ options(replace.assign=TRUE, width=90)
 
 @
 
+<<label=get_the_data, include=FALSE>>=
+
+basin <- 'nc' # 'gb', 'smb' or 'nc'
+yr <- 2010     # 2009 or 2010
+
+fname <- paste('data/whitefish-', basin, '-', yr ,'.csv',sep='')
+mydata <- read.csv(fname, header=TRUE)
+ages <-  unique(mydata$AGE)
+
+basin_label <- switch(basin,
+                      'gb'='Georgian Bay',
+                      'smb'='Southern Lake Huron',
+                      'nc'='the North Channel')                     
+
+@
+
+
+
+
 \graphicspath{{\Sexpr{fig.path}}}
 
 \title{von Bertalanffy growth curve for lake whitefish sample from
-       southern Lake Huron in 2009}
+       \Sexpr{basin_label} in \Sexpr{yr}}
 
 \author{Bob Sakamano}
 
@@ -40,12 +63,6 @@ options(replace.assign=TRUE, width=90)
   \input{abstract}  
 \end{abstract}
 
-<<label=get_the_data, include=FALSE>>=
-
-wfdata <- read.csv('whitefish.csv', header=TRUE)
-ages <-  unique(wfdata$AGE)
-
-@
 
 
 \section*{Introduction}
@@ -60,9 +77,9 @@ the knitr package.
 <<label=fit_model, include=FALSE>>=
 
 #fit the model and predicte size at age
-start = list('Linf'=max(wfdata$FLEN), 't0'=0.0, 'k'=0.25)
+start = list('Linf'=max(mydata$FLEN), 't0'=0.0, 'k'=0.25)
 vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
-            data=wfdata, start=start)
+            data=mydata, start=start)
 
 estimates <- matrix(summary(vonB)$parameters, nrow=3)
 #rownames(estimates) <- names(coef(vonB))
@@ -80,8 +97,8 @@ predicted$FLEN <- predict(vonB, newdata=predicted)
 <<label=plot_fit, include=FALSE>>=
 
 #make a plot
-ylim <- c(0, max(wfdata$FLEN))
-plot(wfdata$AGE, wfdata$FLEN, xlab="Age",
+ylim <- c(0, max(mydata$FLEN))
+plot(mydata$AGE, mydata$FLEN, xlab="Age",
       ylab="Fork Length (mm)")
 lines(predicted$AGE, predicted$FLEN, col='blue')
 
@@ -90,7 +107,7 @@ lines(predicted$AGE, predicted$FLEN, col='blue')
 <<label=mean_size_at_age, include=FALSE>>=
 
 #calculate mean size at age
-mu <- dcast(wfdata, AGE~., value='FLEN', fun=mean)
+mu <- dcast(mydata, AGE~., value='FLEN', fun=mean)
 names(mu) <- c('Age','Observed')
 mu$Predicted <- predict(vonB, newdata=data.frame('AGE'=ages))
 
@@ -103,7 +120,7 @@ mu$Predicted <- predict(vonB, newdata=data.frame('AGE'=ages))
 \label{sub:the_data}
 
 Lake Whitefish collected from both the commercial fishery and the
-OMNR\'s offshore index program in 2009 were randomly selected for
+OMNR\'s offshore index program in \Sexpr{yr} were randomly selected for
 inclusion in this report.  Only fish with both a fork length (mm) and
 age estimate were considered to be eligible.  The sample used in is
 report was created by randomly selecting up to 10 individuals from each
@@ -126,13 +143,12 @@ is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
 The starting value for the asymptotic length was taken as the maximum
 observed fork length in the sample, while $t0$ and $k$ were arbitrarily
 set to 0.0 and 0.25 respectively.  The methods used in this analysis
-closely follow those described in Quinn and Deriso (1999) and Haddon
-(2001).
+closely follow those described in \citet{2246} and \citet{2374}.
 
 \section*{Results}
 \label{sec:results}
 
-A total of \Sexpr{nrow(wfdata)} fish were selected for this analysis.
+A total of \Sexpr{nrow(mydata)} fish were selected for this analysis.
 The mean size at each age is summarized in table \ref{tbl:size-at-age}
 The Von Bertalanffy model appeared to fit the data well.  Parameter
 estimates and confidence intervals are presented in table
@@ -144,7 +160,7 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
      \includegraphics[width=\textwidth]{plot_fit} 
   \end{center} 
   \caption{Mean size at age of a sub-sample of Lake Whitefish
-    collected from southern Lake Huron in 2009.  The blue line
+    collected from \Sexpr{basin_label} in \Sexpr{yr}.  The blue line
     respresents a Von Bertalanffy growth curve fit to the data using
     non-linear least squared.}
   \label{fig:plot_fit}
@@ -152,8 +168,12 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 
 <<label=meanTable, results='asis', echo=FALSE>>=
+
+caption = paste('Observed and predicted size at age of Lake ',
+    'Whitefish sample from ', basin_label, " in ", yr,'.', sep='')
+
 print(xtable(mu, label="tbl:size-at-age", 
-       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009."), include.rownames=FALSE)
+       caption=caption), include.rownames=FALSE)
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=
@@ -167,30 +187,17 @@ xtable(estimates, label="tbl:estimates",
 \label{sec:discussion}
 
 Older Lake Whitefish are smaller than younger.  Lake Whitefish from
-souther Lake Huron appear to be bigger than yellow perch and smaller
-than lake trout but grow slower than yellow perch and faster than lake
+\Sexpr{basin_label} appear to be bigger than yellow perch and generally smaller than lake trout but grow slower than yellow perch and faster than lake
 trout.  These findings are largely consistent with previous on Lake
-Huron Lake Whitefish including....
+Huron Lake Whitefish including by ....
 
 <<label=SweaveAnAbstrast, include=FALSE, echo=FALSE>>=
   #R code here:
   knit(input="abstract.rnw", output="abstract.tex")
 @
 
-
-
-\clearpage
-\section*{References}
-\label{sec:references}
-
-\vspace{5 mm}
-
-Haddon, M. Modelling and Quantitative Methods in Fisheries, Second Edition, Taylor and Francis, 2001. 424 pages.
-
-\vspace{5 mm}
-
-Quinn, T.J and R. B. Deriso. Quantitative Fish Dynamics, New York:Oxford Univiversity Press, 1999. 542 pages.
-
+\bibliographystyle{cjfas} 
+\bibliography{references}
 
 \end{document}
 

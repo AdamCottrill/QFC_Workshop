@@ -33,7 +33,7 @@ options(replace.assign=TRUE, width=90)
 
 \graphicspath{{\Sexpr{fig.path}}}
 
-\title{Von Bertalanfy growth curve for lake whitefish sample from
+\title{von Bertalanffy growth curve for lake whitefish sample from
        southern Lake Huron in 2009}
 
 \author{Bob Sakamano}
@@ -55,8 +55,8 @@ ages <-  unique(wfdata$AGE)
 \section*{Introduction}
 \label{sec:introduction}
 
-Von Bertalanfy growth curve is often use to describe the growth of
-fish.  This paper describes how a Von Bertalanfy growth curve can be
+von Bertalanffy growth curve is often use to describe the growth of
+fish.  This paper describes how a von Bertalanffy growth curve can be
 fit in R and a pdf summary report can be automatically generated using
 the knitr package.
 
@@ -70,7 +70,7 @@ vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
 
 estimates <- matrix(summary(vonB)$parameters, nrow=3)
 #rownames(estimates) <- names(coef(vonB))
-rownames(estimates) <- names("L_{inf}, k, t_0")
+rownames(estimates) <- c("L_{inf}", "k", "t_0")
 colnames(estimates) <- c("Estimate", "Std. Error", "t-value", "Pr(>|t|)")
 
 predicted <- data.frame('AGE' = seq((min(ages) -1),
@@ -155,8 +155,8 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 
 <<label=meanTable, results='asis', echo=FALSE>>=
-xtable(mu, label="tbl:size-at-age", 
-       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009.", include.rownames=FALSE)
+print(xtable(mu, label="tbl:size-at-age", 
+       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009."), include.rownames=FALSE)
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=

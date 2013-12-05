@@ -83,6 +83,31 @@ These set up instructions will:
 - re-open emacs by double clicking on emacs.bat 
   + the warnings should be gone
 
+* .emacs workshop-root
+- pay particular attention to line 5 of =~/workshop/.emacs=
+- it must be absolutely correct
+  + all of slashes must lean to the right ("/")
+  + there must be a trailing slash
+- this will work:
+  ~(defvar workshop-root "C:/<YOUR PATH>/workshop/")~
+- these will *NOT*:
+  ~(defvar workshop-root "C:/<YOUR PATH>/workshop")~
+  ~(defvar workshop-root "C:\<YOUR PATH>\workshop\")~
+  ~(defvar workshop-root "C:\<YOUR PATH>\workshop")~
+
+
+* Starting Emacs
+** =~/workshop/emacs.bat=                                      :B_alertblock:
+   :PROPERTIES:
+   :BEAMER_env: alertblock
+   :END:
+- for the remainder of this document and throughout the workshop
+  always start emacs using  =~/workshop/emacs.bat=
+  + the batch file starts emacs with the workshop configuration file
+  + if you start emacs from somewhere else (desktop-icon), the
+    functionality needed for the workshop will not be available.
+
+
 * Tests
 - each of following slides assume that you have a command prompt
   open and will look like: 
@@ -149,6 +174,9 @@ Build AD Model Builder executable from TPL.
 #+end_src
 
 
+
+
+
 * Tests - R
 ** > R \texttt{-{}-}vanilla 					    :B_block:
     :PROPERTIES:
@@ -172,7 +200,7 @@ q()
 
    
 
-* LaTeX
+* Tests - LaTeX
 ** > latex							    :B_block:
     :PROPERTIES:
     :BEAMER_env: block
@@ -189,8 +217,6 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 \end
 >
 #+end_src
-
-
    
 * R-Packages
   
@@ -209,18 +235,43 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 > install.packages(c('knitr', 'reshape2', 'xtable', 
                      'Hmisc'))
 #+end_src
+
+* ADMB - Compile, Link and Run
+- verify that admb actually works from the command line
+- open command prompt
+- navigate to the 'simple' example that comes with most admb
+  installations
+- type the following commands into the prompt
+** admb simple                                                      :B_block:
+
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+#+begin_src sh
+> cd C:/<YOUR PATH TO AMDB>/admb/examples/admb/simple
+> admb simple
+> simple
+#+end_src
                      
+** the simple model should compile, link and run
 
 * Setting up the ADMB-ide
 
+- copy  =~/workshop/utils/admb2r.cpp= to ~ADMB_HOME/include/admb2r.cpp~
 - edit paths in =~/workshop/emacs/SetADMBpaths.bat= 
   + ~ADMB_HOME~ is the directory that contains
     ~bin~, ~examples~, ~include~, and ~lib~ subdirectories associated
     with your ADMB installation
   + ~CPP_COMPILER~ is the path to the ~/bin~ directory of your C++ compiler  
 
-- copy  =~/workshop/utils/admb2r.cpp= to ~ADMB_HOME/include/admb2r.cpp~
-
+** Visual Studio C++                                           :B_alertblock:
+   :PROPERTIES:
+   :BEAMER_env: alertblock
+   :END:
+- If you use Visual Studio as your C++ compiler edits to
+  =~/workshop/emacs/SetADMBpaths.bat= won't work.  I'll try and have
+  a solution in time for the workshop.
 
 * Test emacs configuration
 ** R
@@ -236,7 +287,7 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 ** R
 - highlight the line in ~test.r~ that contains ~print(1:9)~ and type ~Ctrl-<enter>~
 - the numbers 1 to 9 should appear in the *R* buffer
-- type ~Ctrl-k~ to close (kill) ~test.r~
+- type ~Ctrl-x k~ to close (kill) ~test.r~
 - type ~y~ when emacs asks you if you are sure 
 - type ~q()~ at the R-prompt to quit R
 
@@ -247,6 +298,14 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 - press ~<F8>~ to link and compile the simple model
 - once the model is compiled, press ~<F9>~ to run the model
 - standard ADMB output should appear in a buffer 
+
+** Visual Studio C++                                           :B_alertblock:
+   :PROPERTIES:
+   :BEAMER_env: alertblock
+   :END:
+- These probably won't work is you are using Visual C++ as your
+  compiler.  Stay tuned.
+
 
 * Test emacs configuration (cont'd)
 ** git

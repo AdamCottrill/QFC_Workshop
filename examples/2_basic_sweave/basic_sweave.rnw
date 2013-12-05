@@ -30,7 +30,7 @@ options(replace.assign=TRUE, width=90)
 \graphicspath{{\Sexpr{fig.path}}}
 
 
-\title{Von Bertalanfy growth curve for lake whitefish sample from
+\title{von Bertalanffy growth curve for lake whitefish sample from
        southern Lake Huron in 2009}
 
 
@@ -42,12 +42,12 @@ options(replace.assign=TRUE, width=90)
 \section*{Abstract}
 \label{sec:abstract}
 
-A von Bertalanfy growth curve was fit to Lake Whitefish (Coregonus
+A von Bertalanffy growth curve was fit to Lake Whitefish (Coregonus
 clupeaformis) sampled from southern Lake Huron in 2009.  Lake
 whitefish were collected from the commerical fishery as well as the
 independent survey conducted by the Ontario Ministry of Natural
 resources.  A total of 111 lake whitefish were include in the sample.
-The Von Bertalanfy growth parameters estimated using non-linar least
+The von Bertalanffy growth parameters estimated using non-linar least
 squares where Linf= 600 $\pm$ 20, k = 0.25 $\pm$ 0.10, and t0= 0.1
 $\pm$ 0.02.
 
@@ -63,8 +63,8 @@ ages <-  unique(wfdata$AGE)
 \section*{Introduction}
 \label{sec:introduction}
 
-Von Bertalanfy growth curve is often use to describe the growth of
-fish.  This paper describes how a Von Bertalanfy growth curve can be
+von Bertalanffy growth curve is often use to describe the growth of
+fish.  This paper describes how a von Bertalanffy growth curve can be
 fit in R and a pdf summary report can be automatically generated using
 the knitr package.
 
@@ -78,7 +78,7 @@ vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
 
 estimates <- matrix(summary(vonB)$parameters, nrow=3)
 #rownames(estimates) <- names(coef(vonB))
-rownames(estimates) <- names("L_{inf}, k, t_0")
+rownames(estimates) <- c("L_{inf}", "k", "t_0")
 colnames(estimates) <- c("Estimate", "Std. Error", "t-value", "Pr(>|t|)")
 
 predicted <- data.frame('AGE' = seq((min(ages) -1),

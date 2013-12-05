@@ -13,6 +13,10 @@
 \hypersetup{
  pdfstartview={XYZ null null 1}}
 \usepackage{breakurl}
+
+\usepackage[numbers]{natbib}			
+\bibpunct{(}{)}{;}{a}{,}{,}
+
 \begin{document}
 
 <<label=setup, include=FALSE>>=
@@ -20,6 +24,8 @@
 library(knitr)
 library(reshape2)
 library(xtable)
+library(ADMButils)
+
 # set global chunk options
 fig.path <- 'figures/'
 opts_chunk$set(fig.path=fig.path, fig.align='center', fig.show='hold')
@@ -27,10 +33,38 @@ options(replace.assign=TRUE, width=90)
 
 @
 
+<<label=get_the_data, include=FALSE>>=
+
+basin <- 'nc' # 'gb', 'smb' or 'nc'
+yr <- 2009     # 2009 or 2010
+
+fname <- paste('data/whitefish-', basin, '-', yr ,'.csv',sep='')
+mydata <- read.csv(fname, header=TRUE)
+ages <-  unique(mydata$AGE)
+
+basin_label <- switch(basin,
+                      'gb'='Georgian Bay',
+                      'smb'='Southern Lake Huron',
+                      'nc'='the North Channel')                     
+@
+
+<<label=write_dat, include=FALSE>>=
+fname <- "Von_Bert.dat"
+data_list <- list(Linf_L=300, Linf_U=1200, nobs=nrow(mydata),
+                  data=mydata)
+write.dat(L=data_list,name=fname)
+
+fname <- "Von_Bert.pin"
+data_list <- list(Linf=max(mydata$FLEN), k=0.3, t0=0, sigma=1)
+write.pin(L=data_list,name=fname)
+
+@ 
+
+
 \graphicspath{{\Sexpr{fig.path}}}
 
 \title{von Bertalanffy growth curve for lake whitefish sample from
-       southern Lake Huron in 2009}
+       \Sexpr{basin_label} in \Sexpr{yr}}
 
 \author{Bob Sakamano}
 
@@ -40,12 +74,6 @@ options(replace.assign=TRUE, width=90)
   \input{abstract}  
 \end{abstract}
 
-<<label=get_the_data, include=FALSE>>=
-
-wfdata <- read.csv('whitefish.csv', header=TRUE)
-ages <-  unique(wfdata$AGE)
-
-@
 
 
 \section*{Introduction}
@@ -54,34 +82,53 @@ ages <-  unique(wfdata$AGE)
 von Bertalanffy growth curve is often use to describe the growth of
 fish.  This paper describes how a von Bertalanffy growth curve can be
 fit in R and a pdf summary report can be automatically generated using
-the knitr package.
+the knitr package.  In this example, the model is fit using AD Model Builder.  R is used to write the pin and dat file, call the admb executable and then read in the model estimates.
 
 
 <<label=fit_model, include=FALSE>>=
 
-#fit the model and predicte size at age
-start = list('Linf'=max(wfdata$FLEN), 't0'=0.0, 'k'=0.25)
-vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
-            data=wfdata, start=start)
+#call the executible to fit the paramets
+#setwd(<HERE>)
+shell.exec("Von_Bert.exe")
 
-estimates <- matrix(summary(vonB)$parameters, nrow=3)
+#get admb model estimates
+fit <- readcxx("Von_Bert")
+
+#rest of code expects an 'estimates' matrix
+estimates <- fit$std
+estimates <- matrix(unlist(estimates),ncol=2,byrow=TRUE)
+#put them the expected order (Linf, k and then t0)
+estimates <- estimates[order(estimates[,1], decreasing=TRUE),]
+
 #rownames(estimates) <- names(coef(vonB))
 rownames(estimates) <- c("L_{inf}", "k", "t_0")
-colnames(estimates) <- c("Estimate", "Std. Error", "t-value", "Pr(>|t|)")
+colnames(estimates) <- c("Estimate", "Std. Error")
+
+#a model fit with admb, does not have a build in predict method
+#so we'll build our own:
+pred_len <- function(AGE, pars=list(Linf,k,t0)){
+    Linf <- pars$Linf
+    k    <- pars$k
+    t0   <- pars$t0
+    len  <- Linf * (1 - exp(-k * (AGE - t0)))
+    return(len)
+}
+#create a list of parameters from the fit object
+pars <- list(Linf=fit$std$Linf, k=fit$std$k, t0=fit$std$t0) 
 
 predicted <- data.frame('AGE' = seq((min(ages) -1),
                            max(ages) + 1, by=0.1), 'FLEN'=0)
-
-predicted$FLEN <- predict(vonB, newdata=predicted)
-
+#apply our predict function to each Age and capture the result
+predicted$FLEN <- sapply(predicted$AGE, pred_len,pars=pars)
+    
 @
 
 
 <<label=plot_fit, include=FALSE>>=
 
 #make a plot
-ylim <- c(0, max(wfdata$FLEN))
-plot(wfdata$AGE, wfdata$FLEN, xlab="Age",
+ylim <- c(0, max(mydata$FLEN))
+plot(mydata$AGE, mydata$FLEN, xlab="Age",
       ylab="Fork Length (mm)")
 lines(predicted$AGE, predicted$FLEN, col='blue')
 
@@ -90,9 +137,10 @@ lines(predicted$AGE, predicted$FLEN, col='blue')
 <<label=mean_size_at_age, include=FALSE>>=
 
 #calculate mean size at age
-mu <- dcast(wfdata, AGE~., value='FLEN', fun=mean)
+mu <- dcast(mydata, AGE~., value.var='FLEN', fun=mean)
 names(mu) <- c('Age','Observed')
-mu$Predicted <- predict(vonB, newdata=data.frame('AGE'=ages))
+#again, apply our predict_length function to each age:
+mu$predicted <- sapply(mu$Age, pred_len,pars=pars)
 
 @ 
 
@@ -103,7 +151,7 @@ mu$Predicted <- predict(vonB, newdata=data.frame('AGE'=ages))
 \label{sub:the_data}
 
 Lake Whitefish collected from both the commercial fishery and the
-OMNR\'s offshore index program in 2009 were randomly selected for
+OMNR\'s offshore index program in \Sexpr{yr} were randomly selected for
 inclusion in this report.  Only fish with both a fork length (mm) and
 age estimate were considered to be eligible.  The sample used in is
 report was created by randomly selecting up to 10 individuals from each
@@ -126,13 +174,12 @@ is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
 The starting value for the asymptotic length was taken as the maximum
 observed fork length in the sample, while $t0$ and $k$ were arbitrarily
 set to 0.0 and 0.25 respectively.  The methods used in this analysis
-closely follow those described in Quinn and Deriso (1999) and Haddon
-(2001).
+closely follow those described in \citet{2246} and \citet{2374}.
 
 \section*{Results}
 \label{sec:results}
 
-A total of \Sexpr{nrow(wfdata)} fish were selected for this analysis.
+A total of \Sexpr{nrow(mydata)} fish were selected for this analysis.
 The mean size at each age is summarized in table \ref{tbl:size-at-age}
 The Von Bertalanffy model appeared to fit the data well.  Parameter
 estimates and confidence intervals are presented in table
@@ -144,7 +191,7 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
      \includegraphics[width=\textwidth]{plot_fit} 
   \end{center} 
   \caption{Mean size at age of a sub-sample of Lake Whitefish
-    collected from southern Lake Huron in 2009.  The blue line
+    collected from \Sexpr{basin_label} in \Sexpr{yr}.  The blue line
     respresents a Von Bertalanffy growth curve fit to the data using
     non-linear least squared.}
   \label{fig:plot_fit}
@@ -152,13 +199,18 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 
 <<label=meanTable, results='asis', echo=FALSE>>=
-print(xtable(mu, label="tbl:size-at-age", 
-       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009."), include.rownames=FALSE)
+
+caption = paste('Observed and predicted size at age of Lake ',
+    'Whitefish sample from ', basin_label, " in ", yr,'.', sep='')
+
+print(xtable(mu, label="tbl:size-at-age",
+       caption=caption), include.rownames=FALSE)                        
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=
-xtable(estimates, label="tbl:estimates", 
-       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4))
+#digits will throw and error - leave it in for now for demonstration purposes. should be digits = c(0,2,2) not digits = c(0,2,2,2,4)
+print(xtable(estimates, label="tbl:estimates", 
+       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4)))
 
 @ 
 
@@ -167,30 +219,17 @@ xtable(estimates, label="tbl:estimates",
 \label{sec:discussion}
 
 Older Lake Whitefish are smaller than younger.  Lake Whitefish from
-souther Lake Huron appear to be bigger than yellow perch and smaller
-than lake trout but grow slower than yellow perch and faster than lake
+\Sexpr{basin_label} appear to be bigger than yellow perch and generally smaller than lake trout but grow slower than yellow perch and faster than lake
 trout.  These findings are largely consistent with previous on Lake
-Huron Lake Whitefish including....
+Huron Lake Whitefish including by ....
 
 <<label=SweaveAnAbstrast, include=FALSE, echo=FALSE>>=
   #R code here:
   knit(input="abstract.rnw", output="abstract.tex")
 @
 
-
-
-\clearpage
-\section*{References}
-\label{sec:references}
-
-\vspace{5 mm}
-
-Haddon, M. Modelling and Quantitative Methods in Fisheries, Second Edition, Taylor and Francis, 2001. 424 pages.
-
-\vspace{5 mm}
-
-Quinn, T.J and R. B. Deriso. Quantitative Fish Dynamics, New York:Oxford Univiversity Press, 1999. 542 pages.
-
+\bibliographystyle{cjfas} 
+\bibliography{references}
 
 \end{document}
 
