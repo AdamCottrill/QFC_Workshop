@@ -1,0 +1,144 @@
+<<label=get_gb_data, include=FALSE>>=
+
+basin <- 'smb'
+basin_label <- get_basin_label(basin)
+
+
+#2009 data
+fname <- paste('data/whitefish-', basin, '-', fyear ,'.csv',sep='')
+gb_09_data <- read.csv(fname, header=TRUE)
+gb_09_ages <-  unique(gb_09_data$AGE)
+
+#2010 data
+fname <- paste('data/whitefish-', basin, '-', lyear ,'.csv',sep='')
+gb_10_data <- read.csv(fname, header=TRUE)
+gb_10_ages <-  unique(gb_10_data$AGE)
+
+#=============
+#fit the 2009 model  and predicte size at age
+start = list('Linf'=max(gb_09_data$FLEN), 't0'=0.0, 'k'=0.25)
+gb_09_vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
+            data=gb_09_data, start=start)
+
+gb_09_estimates <- matrix(summary(gb_09_vonB)$parameters, nrow=3)
+
+rownames(gb_09_estimates) <- c("L_{inf}", "k", "t_0")
+colnames(gb_09_estimates) <- c("Estimate", "Std. Error", "t-value", "Pr(>|t|)")
+
+gb_09_predicted <- data.frame('AGE' = seq((min(gb_09_ages) -1),
+                           max(gb_09_ages) + 1, by=0.1), 'FLEN'=0)
+
+gb_09_predicted$FLEN <- predict(gb_09_vonB, newdata=gb_09_predicted)
+
+#=============
+#fit the 2010 model  and predicte size at age
+start = list('Linf'=max(gb_10_data$FLEN), 't0'=0.0, 'k'=0.25)
+gb_10_vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
+            data=gb_10_data, start=start)
+
+gb_10_estimates <- matrix(summary(gb_10_vonB)$parameters, nrow=3)
+
+rownames(gb_10_estimates) <- c("L_{inf}", "k", "t_0")
+colnames(gb_10_estimates) <- c("Estimate", "Std. Error", "t-value", "Pr(>|t|)")
+
+gb_10_predicted <- data.frame('AGE' = seq((min(gb_10_ages) -1),
+                           max(gb_10_ages) + 1, by=0.1), 'FLEN'=0)
+
+gb_10_predicted$FLEN <- predict(gb_10_vonB, newdata=gb_10_predicted)
+
+#combine the estimates of both models into single matrix
+estimates <- rbind(gb_09_estimates, gb_10_estimates)
+
+@ 
+
+<<label=paste0('fit',basin), include=FALSE>>=
+fname <- paste0(fig.path,'fit_',basin, '.pdf')
+pdf(fname,height=5,width=5)                  
+  #make a plot with both fitted lines.  Don't forget to add a legend
+  ylim <- c(0, max(gb_09_data$FLEN, gb_10_data$FLEN))
+  xlim <- c(0, max(gb_09_data$AGE, gb_10_data$AGE))
+  plot(gb_09_data$AGE, gb_09_data$FLEN, xlab="Age",
+        ylab="Fork Length (mm)", pty='n')
+  #plot the lines - offset slightly so they don't overlap perfectly
+  points(gb_09_data$AGE+0.05, gb_09_data$FLEN, col='blue', pch=1)
+  points(gb_10_data$AGE-0.05, gb_10_data$FLEN, col='red', pch=2)
+  
+  lines(gb_09_predicted$AGE, gb_09_predicted$FLEN, col='blue')
+  lines(gb_10_predicted$AGE, gb_10_predicted$FLEN, col='red', lty=2)
+  
+  legend(x=8,y=300, legend=c(fyear,lyear), col=c('blue','red'),
+         pch=c(1,2), lty=c(1,2), bty='n')
+dev.off()  
+@
+
+
+\subsection*{\Sexpr{basin_label}}
+\label{subsec:\Sexpr{basin_label}}
+
+
+A total of \Sexpr{nrow(gb_09_data)} fish were selected from
+\Sexpr{fyear} with another \Sexpr{nrow(gb_10_data)} selected from
+\Sexpr{lyear} for this analysis.  The mean size at each age for both
+\Sexpr{fyear} and \Sexpr{lyear} are summarized in table
+\ref{tbl:size-at-age-gb} The Von Bertalanffy model appeared to fit the
+data well for both years.  Parameter estimates and confidence intervals are presented
+in table \ref{tbl:estimates-gb} and a plot illustrating the fitted curve
+against observed mean size at age for both years has been provided
+\ref{fig:fit_gb}.
+
+\begin{figure} 
+  \begin{center}
+    \includegraphics[width=\textwidth]{\Sexpr{paste0('fit_', basin)}} 
+  \end{center}
+  \caption{Mean size at age of a sub-sample of Lake Whitefish
+           collected from \Sexpr{basin_label} in \Sexpr{fyear} and
+           \Sexpr{lyear}.  The line respresents a Von Bertalanffy growth
+           curve fit to the data in each year using non-linear least squared.}
+  \label{fig:fit_gb} 
+\end{figure}
+
+
+<<label=paste0("mean_size_at_age_", basin), include=FALSE>>=
+
+#calculate mean size at age
+mu_09 <- dcast(gb_09_data, AGE~., value.var='FLEN', fun=mean)
+names(mu_09) <- c('Age','Observed')
+mu_09$Predicted <- predict(gb_09_vonB, newdata=data.frame('AGE'=gb_09_ages))
+
+mu_10 <- dcast(gb_10_data, AGE~., value.var='FLEN', fun=mean)
+names(mu_10) <- c('Age','Observed')
+mu_10$Predicted <- predict(gb_10_vonB, newdata=data.frame('AGE'=gb_10_ages))
+
+mus <- merge(mu_09, mu_10, by='Age', all.x=TRUE, all.y=TRUE)
+
+
+@ 
+
+
+<<label=paste0("meanTable_", basin), results='asis', echo=FALSE>>=
+
+caption = paste('Observed and predicted size at age of Lake ',
+    'Whitefish sampled from ', basin_label, " in ", fyear, ' and ',
+    lyear, '.', sep='')
+
+print(xtable(mus, label=paste0("tbl:size-at-age-", basin),
+       caption=caption), include.rownames=FALSE)             
+             
+             
+@ 
+
+<<label=paste0("Estimates_", basin), results='asis', echo=FALSE>>=
+
+caption <- paste0("Parameter estimates, standard errors, t-values ",
+                  "and associated p-values for coeffient estimates of ",
+                  "a Von Bertalanffy growth curve fit to lake ",
+                  "whitefish sampled from ", basin_label, " in ", fyear, 
+                  ' and ', lyear, '.')
+
+xtable(estimates, label=paste0("tbl:estimates-", basin), 
+       caption=caption,
+       digits = c(0,2,2,2,4))
+
+@ 
+
+

@@ -1,5 +1,8 @@
 * Reproducible Research Workshop examples
 
+ADD timestamp footer to sweave reports
+
+
 ** DONE minimal_latex
 - this directory contains a minimal working latex document
 - verify that latex works and can compile a document to pdf.

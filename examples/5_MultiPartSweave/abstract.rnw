@@ -1,0 +1,13 @@
+<<getpars, include=FALSE>>=
+
+
+@ 
+
+A von Bertalanffy growth curve was fit to Lake Whitefish (Coregonus
+clupeaformis) sampled from three basins of Lake Huron in \Sexpr{fyear}
+and \Sexpr{lyear}.  Lake whitefish were collected from the commerical
+fishery as well as the independent survey conducted by the Ontario
+Ministry of Natural resources.  Annual sample sizes ranged from XX to
+total of YY lake.  Estimated values of Linf ranged from AA $\pm$ aa to
+BB $\pm$ bb.
+

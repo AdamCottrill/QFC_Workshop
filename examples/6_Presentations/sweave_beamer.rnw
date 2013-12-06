@@ -1,0 +1,174 @@
+\documentclass{beamer}
+
+\begin{document}
+
+<<label=setup, include=FALSE>>=
+
+library(knitr)
+library(reshape2)
+library(xtable)
+# set global chunk options
+fig.path <- 'figures/'
+opts_chunk$set(fig.path=fig.path, fig.align='center', fig.show='hold')
+options(replace.assign=TRUE, width=90)
+
+@
+
+<<label=get_the_data, include=FALSE>>=
+
+basin <- 'nc' # 'gb', 'smb' or 'nc'
+yr <- 2010     # 2009 or 2010
+
+fname <- paste('data/whitefish-', basin, '-', yr ,'.csv',sep='')
+mydata <- read.csv(fname, header=TRUE)
+ages <-  unique(mydata$AGE)
+
+basin_label <- switch(basin,
+                      'gb'='Georgian Bay',
+                      'smb'='Southern Lake Huron',
+                      'nc'='the North Channel')                     
+
+@
+
+
+
+
+\graphicspath{{\Sexpr{fig.path}}}
+
+\title{von Bertalanffy growth curve for Lake Whitefish sample from
+       \Sexpr{basin_label} in \Sexpr{yr}}
+
+\author{Bob Sakamano}
+
+
+\maketitle
+
+\begin{frame}
+\frametitle{Introduction}
+
+This paper describes how a von Bertalanffy growth curve can be
+fit in R and a pdf summary report can be automatically generated using
+the knitr package.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Methods and Materials}
+
+\begin{itemize}
+\item Lake Whitefish collected from both the commercial fishery and
+  the OMNR\'s offshore index program in \Sexpr{yr} were randomly
+  selected for inclusion in this report.
+
+\item Only fish with both a fork length (mm) and age estimate were
+  considered to be eligible.
+
+\item  up to 10 individuals from each of the available age classes were
+ selected.
+\end{itemize}
+
+
+The parameters where estimated using non-linear least squares by
+fitting the following model to the observed data:
+
+\begin{equation}
+L_i = L_{inf} (1 - e^{-k(t_i-t_0)}) + e_i
+\end{equation}
+
+\end{frame}
+
+
+<<label=fit_model, include=FALSE>>=
+
+#fit the model and predicte size at age
+start = list('Linf'=max(mydata$FLEN), 't0'=0.0, 'k'=0.25)
+vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
+            data=mydata, start=start)
+
+estimates <- matrix(summary(vonB)$parameters, nrow=3)
+#rownames(estimates) <- names(coef(vonB))
+rownames(estimates) <- c("L_{inf}", "k", "t_0")
+colnames(estimates) <- c("Estimate", "Std. Error", "t-value", "Pr(>|t|)")
+
+predicted <- data.frame('AGE' = seq((min(ages) -1),
+                           max(ages) + 1, by=0.1), 'FLEN'=0)
+
+predicted$FLEN <- predict(vonB, newdata=predicted)
+
+@
+
+<<label=mean_size_at_age, include=FALSE>>=
+
+#calculate mean size at age
+mu <- dcast(mydata, AGE~., value='FLEN', fun=mean)
+names(mu) <- c('Age','Observed')
+mu$Predicted <- predict(vonB, newdata=data.frame('AGE'=ages))
+
+@ 
+
+\begin{frame}
+  \frametitle{Results}
+  
+  \begin{itemize}
+  \item a total of \Sexpr{nrow(mydata)} fish were selected for this analysis.
+  \end{itemize}
+  
+<<label=meanTable, results='asis', echo=FALSE>>=
+
+caption = paste('Observed and predicted size at age of Lake ',
+    'Whitefish sample from ', basin_label, " in ", yr,'.', sep='')
+
+print(xtable(mu, label="tbl:size-at-age", 
+       caption=caption), include.rownames=FALSE)
+@ 
+    
+\end{frame}
+
+
+<<label=plot_fit, fig.width=8, fig.height=6, include=FALSE>>=
+
+#make a plot
+ylim <- c(0, max(mydata$FLEN))
+plot(mydata$AGE, mydata$FLEN, xlab="Age",
+      ylab="Fork Length (mm)")
+lines(predicted$AGE, predicted$FLEN, col='blue')
+
+@
+
+\begin{frame}
+\frametitle{Fitted vs Observed}
+\begin{figure}
+  \begin{center} 
+     \includegraphics[width=\textwidth]{plot_fit} 
+  \end{center} 
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Estimated Coefficients}
+
+<<label=Estimates, results='asis', echo=FALSE>>=
+xtable(estimates, label="tbl:estimates", 
+       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4))
+@ 
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Conclusions}
+\begin{itemize}
+\item Older Lake Whitefish are larger than younger whitefish.
+\item Lake Whitefish from \Sexpr{basin_label} appear to be bigger than
+  yellow perch and are generally smaller than lake trout
+\item grow more slowly than yellow perch but faster than lake
+  trout.  
+\item These findings are largely consistent with previous work on Lake
+  Huron Lake Whitefish including ....
+\end{itemize}  
+
+\end{frame}
+
+
+\end{document}

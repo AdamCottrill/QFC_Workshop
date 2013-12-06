@@ -339,7 +339,8 @@ Your abstract goes here...
 
 * Debugging
 - errors in \Latex can be difficult to diagnose
-- 'Runaway argument'  most common - caused by missing closing delimiter
+- ~! I can't write on file `<YourFile>.pdf'~
+- 'Runaway argument'  2nd most common - caused by missing closing delimiter
 ** defensive coding
 - compile early and often
 - use tools that insert closing delimiters (e.g. - yasnippets)
