@@ -2,7 +2,6 @@
 
 ADD timestamp footer to sweave reports
 
-
 ** DONE minimal_latex
 - this directory contains a minimal working latex document
 - verify that latex works and can compile a document to pdf.
@@ -62,16 +61,20 @@ ADD timestamp footer to sweave reports
 - different ways to insert figures
 
 
-** MultiPartSweave
-- Multi part documents are easy to produce
+** DONE Multi-part knitr report
+- Multi-part documents are easy to produce
 - one main rnw file
   + document wide settings (toc, references ect)
   + knitr() and \include{} for each section
-- create simple report with chapters fro whitefish, lake trout and
-  perch. One introduction, one conclusion, and common references.
+- create simple report with chapters for whitefish sampled from three
+  different locations.  One introduction, one conclusion, and common
+  references.
+- TODO:
+  + format tables
+  + verify references works as expected
+  + example of side-by-side figures.
 
-
-** Presentations
+** DONE Presentations
 - presentations can be easily created using the beamer package
 - create a quick presentation showing the basic information of the
   report:
@@ -80,7 +83,6 @@ ADD timestamp footer to sweave reports
   + length histogram
   + fitted curve
   + summary table(s)
-
 
 ** Sweave_ODBC
 - include an example of retrieving data from sqlite db instead of ms access.
@@ -107,6 +109,17 @@ ADD timestamp footer to sweave reports
 - real scaa example (AA_89)
 
 
+** knitr and markdown
+
+
+- a bonus example (time permitting) demonstrating how knitr can be used
+  to generate dynamic documents from markdown files
+- introduce basic markdown syntax
+- chrome markdown plug-in
+
+** knitr and html
+- bonus example if there is time demonstrating how knitr can be used
+  to generate dynamic html documents from html templates
 ** git
 
 

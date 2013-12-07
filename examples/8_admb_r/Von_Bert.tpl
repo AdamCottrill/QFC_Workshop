@@ -30,6 +30,7 @@ PARAMETER_SECTION
   vector Aobs(1,nobs)
   vector Lobs(1,nobs)
   vector Lpred(1,nobs)
+  vector resid(1,nobs)
 
   sdreport_number k2  //so mcmc works
 
@@ -44,7 +45,8 @@ PRELIMINARY_CALCS_SECTION
 PROCEDURE_SECTION
 
   vb();
-  RSS=norm2(Lobs-Lpred);
+  resid = Lobs-Lpred;
+  RSS=norm2(resid);
   f=(nobs/2)*log(RSS/nobs);
 
 FUNCTION vb

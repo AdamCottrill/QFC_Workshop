@@ -14,11 +14,26 @@ open_r_file(adprogram_name + ".rdat", 6, -999);
      wrt_r_item("units.len", "mm");
   close_r_info_list();
   
-  // scalars need to be written to 'info_list' objects
-  open_r_info_list("dims", false);
+  // scalars can be written to vector objects
+  open_r_vector("dims");
      wrt_r_item("nobs", nobs);
   close_r_info_list();
-  
+
+  // or info_lists
+  open_r_info_list("dims2", false);
+     wrt_r_item("nobs", nobs);
+  close_r_info_list();
+
+
+  // a dataframe:
+  open_r_df("residuals");
+    wrt_r_df_col("Age",Aobs);
+    wrt_r_df_col("Lobs",Lobs);
+    wrt_r_df_col("Lpred",Lpred);
+    wrt_r_df_col("resid",resid);
+  close_r_df();
+
+
   // a matrix
   open_r_matrix("data");
     wrt_r_matrix(data,1,1);

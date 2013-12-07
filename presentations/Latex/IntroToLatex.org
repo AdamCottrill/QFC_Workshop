@@ -83,8 +83,8 @@
 
 
 
-* Pre-amble
-- precedes the \textbackslash{}begin{document} command
+* Preamble
+- precedes the ~\begin{document}~ command
 - loads required packages
 - document specific settings
 - possible to define macros
@@ -133,9 +133,9 @@
 \subsubsection{A Subsubsection}
 \paragraph{paragraph}
 \subparagraph{subparagraph}
+
 % suppress numbers with asterisk
 \section*{Introduction}
-
 #+END_SRC
 
 
@@ -167,8 +167,9 @@
 #+END_SRC
 
 * Tables
-** Example                                                          :B_block:
+** Latex:                                                     :BMCOL:B_block:
    :PROPERTIES:
+   :BEAMER_col: 0.6
    :BEAMER_env: block
    :END:
 
@@ -176,17 +177,30 @@
 #+BEGIN_SRC latex
 \begin{table}
   \begin{center}
-    \begin{tabular}{ l r }
+    \begin{tabular}{ l l }
       Name & Value \\
       \hline
-      row1col1 & row1col2 \\
-      row2col1 & row2col2 \\     
+      A1 & B1 \\
+      A2 & B2 \\     
     \end{tabular}
   \end{center}
-  \caption[shortcaption]{full table caption}
+  \caption[shortcaption]{longcaption}
   \label{tbl:simpletable}
 \end{table}
 #+END_SRC
+
+** Produces:                                                 :B_block:BMCOL:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :BEAMER_col: 0.4
+   :END:
+
+| Name | Value |
+|------+-------|
+| A1   | B1    |
+| A2   | B2    |
+
+
 
 * Equations
 
@@ -306,7 +320,7 @@ Your abstract goes here...
 
 * Multi-part Documents
 
-- for multiple parts documents use ~\include{}~
+- for multiple parts documents use   ~\input{}~ or ~\include{}~
 - main.tex contains preamble and document-wide settings (TOC, lists of
   figure and tables, etc.)
 ** main.tex                                                         :B_block:

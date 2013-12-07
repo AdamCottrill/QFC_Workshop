@@ -39,7 +39,7 @@
      + 
         [[C:\1work\Modelling\QFC_workshop\presentations\Knitr\IntroToKnitr.pdf]]
 
-7. AMDB, R and knitr
+7. Sharing Data between ADMB and R
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\AdmbAndR\AdmbAndR.org]]
      + [[C:\1work\Modelling\QFC_workshop\presentations\AdmbAndR\AdmbAndR.pdf]]
@@ -48,5 +48,5 @@
      - [[C:\1work\Modelling\QFC_workshop\presentations\Git\IntroToGit.org]]
      - [[C:\1work\Modelling\QFC_workshop\presentations\Git\IntroToGit.pdf]]
 
-* 
-* 
+ 
+ 

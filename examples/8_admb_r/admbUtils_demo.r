@@ -43,8 +43,35 @@ write.dat(L=data_list,name=fname)
 #Elements in the parameter list must match the order that parameters
 #are declared in the parameter section of your tpl.
 fname <- "Von_Bert.pin"
-data_list <- list(Linf=max(mydata$FLEN), k=0.3, t0=0, sigma=1)
-write.pin(L=data_list,name=fname)
+pin_list <- list(Linf=max(mydata$FLEN), k=0.3, t0=0)
+write.pin(L=pin_list, name=fname)
+
+
+#===============
+#  read.par()
+
+# given the path to a fitted admb object, read.par() will read the parameter file and return its contents as a named list, including the gradient, objectitive function and parameter count.
+# if reduced==TRUE, the parameter estimates will be omitted (see read.std())
+fit <-  read.par("Von_Bert", reduce=FALSE)
+fit
+str(fit)
+fit$par.cnt
+fit$obj.fct
+fit$gradient
+fit$Linf
+
+#===============
+#  read.std()
+
+# given the path to a fitted admb object, read.std() will read the std file and return its contents either as a dataframe or as a named list, 
+fit <-  read.std("Von_Bert")
+fit
+str(fit)
+
+fit <-  read.std("Von_Bert", as.df=FALSE)
+fit
+str(fit)
+
 
 
 #===============
@@ -56,6 +83,8 @@ fit <-  read.fit("Von_Bert")
 str(fit)
 fit$est
 fit$std
+fit$cov
+fit$cor
 
 
 #===============
@@ -66,7 +95,6 @@ fit$std
 #additional arguments are needed.
 
 mcmc <- read.mcmc(mcmc.file="mcmc.csv")
-
 class(mcmc)
 str(mcmc)
 # because its already an mcmc object we can use some of R's canned
@@ -87,3 +115,12 @@ fit <-  readcxx("Von_Bert")
 str(fit)
 fit$std
 
+#scalars in vector list can be accessed with literal scripting:
+fit$dims['nobs']
+fit$dims$nobs    # Error - won't work for vectors
+#scalars in info_list can be accessed as sublists
+fit$dims2$nobs
+fit$dims2['nobs']  #both work here.
+
+
+plot(fit$residuals$Age,fit$residuals$resid)
