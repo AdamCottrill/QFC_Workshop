@@ -57,12 +57,12 @@
 * Latex Basics
 
 - philosophy remove formatting and presentation concerns from author
-- author focuses on basic document structure and content, \LaTeX
+- author focuses on basic document structure and content, \LaTeX{}
   handles typesetting, formatting and cross references
 - addon-packages ([[http://www.ctan.org]]) provide additional functionality  
 - different than Word and other "What-You-See-Is-What-You-get"
   applications
-- \LaTeX uses plain text files (*.tex)
+- \LaTeX{} uses plain text files (*.tex)
 
 
 * A Minimal Example
@@ -77,7 +77,7 @@
 \documentclass{article}
 \begin{document}
   \LaTeX{} is a document preparation system for the 
-  \TeX{}typesetting program. 
+  \TeX{} typesetting program. 
 \end{document}
 #+END_SRC
 
@@ -167,7 +167,7 @@
 #+END_SRC
 
 * Tables
-** Latex:                                                     :BMCOL:B_block:
+** \LaTeX:                                                    :BMCOL:B_block:
    :PROPERTIES:
    :BEAMER_col: 0.6
    :BEAMER_env: block
@@ -194,7 +194,7 @@
    :BEAMER_env: block
    :BEAMER_col: 0.4
    :END:
-
+#+caption: longcaption
 | Name | Value |
 |------+-------|
 | A1   | B1    |
@@ -204,7 +204,7 @@
 
 * Equations
 
-- \LaTeX excellent support for mathematical type setting
+- \LaTeX{} excellent support for mathematical type setting
 - simple in-line formula can be included by wrapping statement in \$
   + ~$\alpha + \beta = \delta$~ will render as \alpha + \beta = \delta
 - more complicated equations require either  ~displaymath~ or
@@ -248,7 +248,7 @@ L_i = L_{\infty} (1 - e^{-k(t_i-t_0)}) + e_i
 - what ~bibtex~ does:
   + ~bibtex~ parses ~*.tex~ document
   + compiles references (~\cite{<key>}~)
-  + replaces ~\cite{<key>})~ with "Quinn and Deriso (1999)"
+  + replaces ~\cite{<key>})~ with 'Quinn and Deriso (1999)'
   + formats and builds References section of report
 
 * BibTex (cont'd)
@@ -320,7 +320,7 @@ Your abstract goes here...
 
 * Multi-part Documents
 
-- for multiple parts documents use   ~\input{}~ or ~\include{}~
+- for multi-parts documents use   ~\input{}~ or ~\include{}~
 - main.tex contains preamble and document-wide settings (TOC, lists of
   figure and tables, etc.)
 ** main.tex                                                         :B_block:
@@ -347,14 +347,18 @@ Your abstract goes here...
 - ~frame{....}~ environment produces a slide
 - dozens of pre-built themes available (see:
   [[http://www.hartwork.org/beamer-theme-matrix/]])
-- an example beamer presentation has been provided in =~/examples/beamer=
+- an example of a dynamic beamer presentation has been provided in
+  ~/examples/6_Presentations/sweave_beamer.rnw~
 - all of the presentations in this workshop were created using beamer
 
-
 * Debugging
-- errors in \Latex can be difficult to diagnose
-- ~! I can't write on file `<YourFile>.pdf'~
-- 'Runaway argument'  2nd most common - caused by missing closing delimiter
+#+latex: \begin{itemize}
+#+latex: \item errors in \LaTeX{} can be difficult to diagnose
+#+latex: \begin{itemize}
+#+latex: \item \verb~! I can't write on file `<YourFile>.pdf'~
+#+latex: \item \verb~Runaway argument~ 
+#+latex: \end{itemize}
+#+latex: \end{itemize}
 ** defensive coding
 - compile early and often
 - use tools that insert closing delimiters (e.g. - yasnippets)

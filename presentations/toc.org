@@ -31,8 +31,6 @@
      + [[C:\1work\Modelling\QFC_workshop\presentations\Latex\IntroToLatex.org]]
      + 
         [[C:\1work\Modelling\QFC_workshop\presentations\Latex\IntroToLatex.pdf]]
-     + TODO:
-       + beamer example (and url in this presentation)
 6. Sweave/knitr
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\Knitr\IntroToKnitr.org]]
