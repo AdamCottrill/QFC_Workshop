@@ -48,8 +48,6 @@ basin_label <- switch(basin,
 @
 
 
-
-
 \graphicspath{{\Sexpr{fig.path}}}
 
 \title{von Bertalanffy growth curve for lake whitefish sample from
@@ -62,8 +60,6 @@ basin_label <- switch(basin,
 \begin{abstract}
   \input{abstract}  
 \end{abstract}
-
-
 
 \section*{Introduction}
 \label{sec:introduction}
@@ -169,16 +165,24 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 <<label=meanTable, results='asis', echo=FALSE>>=
 
-caption = paste('Observed and predicted size at age of Lake ',
-    'Whitefish sample from ', basin_label, " in ", yr,'.', sep='')
+#caption = paste('Observed and predicted size at age of Lake ',
+#    'Whitefish sample from ', basin_label, " in ", yr,'.', sep='')
+
+caption <- 'Observed and predicted size at age of Lake 
+            Whitefish sample from %s in %i.'
+caption <- sprintf(caption, basin_label, yr)
 
 print(xtable(mu, label="tbl:size-at-age", 
        caption=caption), include.rownames=FALSE)
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=
+
+caption <- "Parameter estimates, standard errors, t-values 
+            and associated p-values for Von Bertalanffy growth 
+            curve."
 xtable(estimates, label="tbl:estimates", 
-       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4))
+       caption=caption, digits = c(0,2,2,2,4))
 
 @ 
 

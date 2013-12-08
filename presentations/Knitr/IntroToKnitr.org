@@ -22,6 +22,8 @@
 #+latex_header: %\setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
 #+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
 
+#+latex_header: \newcommand\Fontx{\fontsize{10}{12}\selectfont}
+
 #+latex_header: \graphicspath{{figures/}}
 
 
@@ -29,84 +31,340 @@
 
 * Knitr - the new Sweave
 
-- Sweave original literate programing engine for R (or S) written by XX
-
-- still works perfectly well
-- knitr re-implementation of sweave
+- Sweave original literate programing engine for R (or S) written by Friedrich Leisch
+  + still works perfectly well
+- knitr re-implementation of sweave written by Yihui Xie 
+  + homepage: [[http://yihui.name/knitr/]]
 - minor differences in *.rnw files
-- much more flexible
-  + markdown to html
-  + 
-  + errors seem to be more transparent
+- knitr much more flexible
+  + much better error handling 
+  + markdown and  html
+  + extensible to other languages
+- all subsequent examples will refer to knitr
 
 * Differences between knitr and Sweave
-- no *.sty file to register in kritr
-- default options
-- graphics
-- chunk options are variables
+- no *.sty file to register with kritr
+- knitr chunk options are R-expressions
+- output code automatically 'pretty printed'
+- errors warning rendered directly in document
+- graphics 
+  - grid based graphics render without =print()=
+  - multiple graphics per chunk
+  - fine grained control of figure environment 
+
+* Literate Programming
+
+** Literate Programming                                         :B_quotation:
+   :PROPERTIES:
+   :BEAMER_env: quotation
+   :END:
+
+    Let us change our traditional attitude to the construction of
+    programs: Instead of imagining that our main task is to instruct a
+    computer what to do, let us concentrate rather on explaining to
+    humans what we want the computer to do. 
+
+    -- Donald E. Knuth,
+    Literate Programming, 1984
 
 * Basics
-- focus on rnw -> latex -> pdf
+
+- both knitr and sweave realize literate programming by embedding
+  analysis code directly in source code of final document
+- =*.rnw= - 'R-noweb' file
+  - contain both \LaTeX{} and embedded R code
+- code introduced in 'chunks' or using ~\Sexpr{}~
 - same basic principles apply to other formats and documents types
-- realize literate programming by imbedding analysis code directly in
-  source code of document 
-- code introduced in 'chunks' or using \Sexpr{} 
 
-* rnw file format and emacs 
+* ~rnw~ file format and emacs 
 
-- R-Noweb file
-- contain both latex and embedded r code
+
 - ESS supports rnw files - major mode changes depending on location
   point
   + latex mode outside of chunks
-  + ess[S] mode inside of chunks
+  + ESS[S] mode inside of chunks
 
-** Compiling to pdf
-- M-r  run knitr current buffer (M-s to sweave)
-- M-P  compile tex file pdf
-   + (note uppercase P)
+** Compiling to pdf                                                 :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+| ~M-r~   | run knitr current buffer (~M-s~ to sweave) |
+| ~M-S-p~ | compile tex file pdf                       |
+
+* Compiling to pdf
+
+#+LATEX: \begin{center}
+#+latex: \includegraphics[width=\textwidth]{rnw2pdf0}
+#+LATEX: \end{center}
+
+* Compiling to pdf
+
+#+LATEX: \begin{center}
+#+latex: \includegraphics[width=\textwidth]{rnw2pdf1}
+#+LATEX: \end{center}
+
+
+* Chunks
+
+- blocks of R code embedded directly in \LaTeX{} file
+- delineated by ~<<>>= ... @~
+** Example chunk:                                                   :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+#+BEGIN_SRC latex
+% latex code
+<<>>=
+wfdata <- read.csv('whitefish.csv', header=TRUE)
+ages <-  unique(wfdata$AGE)
+@
+% latex code
+#+END_SRC
 
 * Chunk Options
-- default option and then example slides and output of most common
-  options
+- chunk options control how sweave/knitr process code and handle
+  results
+- of the form:
+  + ~<<label, option1=foo, option2=bar>>=~
+- knitr has many more chunk options than sweave
+  - almost too many
+  - many overlap with \LaTeX{}
+- must be on one line (no line breaks)
+- =opts_chunk$set()= can be used to set default value for all
+  subsequent chunks in a document
 
-* \Sexp{}
+* Common Chunk Options
+
+** =label=
+- first chunk option
+- optional, but highly recommended
+** =eval=
+- =TRUE/FALSE= OR numeric vector
+- controls whether code chuck is processed by R interpreter
+** =echo=
+- =TRUE/FALSE= OR numeric vector
+- should expression in code chunk appear in rendered document
+
+* Common Chunk Options (cont'd)
+** =results=
+- one of 'asis', 'hide', 'markup', 'hold'
+- should results of code chunk appear in rendered document
+
+** =include=
+- =TRUE/FALSE=
+- if ~include==FALSE~ nothing from chunk will be written into document
+- code in chunk is evaluated, not included
+- ideal for figures and analysis code
+
+** =error=, =warning=, =message=
+- =TRUE/FALSE=
+- whether to include or suppress errors, warning or messages in final
+  document
+
+* Chunk examples:
+
+** Performs an action, no \LaTeX{} returned:                        :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+#+BEGIN_SRC R
+<<label=fit_model, include=FALSE>>=
+...
+@
+#+END_SRC
+** Include \LaTeX{} results from R:                                 :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC R
+<<label=meanTable, results='asis', echo=FALSE>>=
+...
+@
+#+END_SRC
+
+* =Sexpr{}=
 
 - used to insert values inline (mid-sentence)
-- limited to single line expressions
+- cannot contain line breaks
+- longer expressions should be defined in preceding chunks
 
-** code blocks
-- the value of pi = \Sexpr{pi}.
-** will render as
-- "The value of pi = 3.14."
+** An Example:                                                      :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC latex
+The value of \pi = \Sexpr{pi}.
+#+END_SRC
+
+** will render as:                                                  :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+The value of \pi = 3.1416.
 
 * Tables
 - number of packages that render R objects as latex tables
-  + xtable
-  + Hmisc
-- R-object support differs by package
+  + [[http://cran.r-project.org/web/packages/xtable/index.html][xtable]] (Dahl, 2013)
+  + [[http://cran.r-project.org/web/packages/Hmisc/index.html][Hmisc]]  (Harrel, 2013)
+  + [[http://cran.r-project.org/web/packages/tables/index.html][tables]] (Murdoch, 2013)
+- all will render data frames as \LaTeX{} tables
+- large number of arguments for flexibility
+- support for other R-object differs by package
 - admb objects - require custom function to convert to data frame or
   write latex directly
 
+* Tables (cont'd)
+
+** Linear Model:                                                    :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC R
+<<label=M2, results='asis'>>=
+   cap.txt = paste0("Coefficient estimates, standard errors "
+                   "and associated p-values for Model 2.")
+   xtable(M2, caption = cap.txt, label="tbl:M2")
+@
+
+#+END_SRC
+
+** Custom Function:                                                 :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC R
+%Mortality Summary
+<<label=Morttable, results='asis'>>=
+Mort.summary(scaa, latex=TRUE)
+@
+#+END_SRC
+
+
 * Figures
 - two different approaches:
-  + chunk option fig=True
-  + manually create figure environment
+  + chunk option ~include=TRUE~
+  + explicitly create figure in R and figure environment in \LaTeX{}
 
 - handling figures much improved in knitr
-- first approach is probably adequate
+  - still too much magic 
+  
+** Zen of Python:                                               :B_quotation:
+   :PROPERTIES:
+   :BEAMER_env: quotation
+   :END:
 
-* Von Bert example
+"Explicit is better than implicit."
+
+-- Tim Peters, Zen of Python
+
+* Figures - ~graphicspath{}~
+- \LaTeX{} variable ~\graphicspath{}~ can be set in the preamble and controls
+  where \LaTeX{} looks for figures
+- recommend setting ~\graphicspath{}~ in first chunk
+
+** =graphicspath{}=                                                 :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC latex
+<<label=setup, include=FALSE>>=
+library(knitr)
+# set global chunk options
+fig.path <- 'figures/'
+opts_chunk$set(fig.path=fig.path, fig.align='center')
+@
+
+\graphicspath{{\Sexpr{fig.path}}
+#+END_SRC
+
+
+* Figures - example chunks
+
+** R-chunk                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC R
+<<label=plot_fit, include=FALSE>>=
+pdf("LengthAtAge.pdf", height=5, width=5)                  
+plot(wfdata$AGE, wfdata$FLEN, xlab="Age", ylab="Length")
+lines(predicted$AGE, predicted$FLEN, col='blue')
+dev.off()
+@
+#+END_SRC
+** \LaTeX{}                                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC latex
+\begin{figure}
+  \begin{center} 
+     \includegraphics[width=\textwidth]{LengthAtAge} 
+  \end{center} 
+  \caption{Mean size at age ...}
+  \label{fig:plot_fit}
+\end{figure}
+#+END_SRC
+
+
+* Figure and Table Captions
+- captions in scientific writing are often verbose 
+  + numerous embedded values
+
+** One way:                                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC R
+A <- pi
+B <- sqrt(pi)
+lake <- 'Lake Huron' 
+fyear <- 1990 
+lyear <- 2003
+
+caption <- paste("This is a long figure caption where A = ",
+                round(A,3), " and B = ", round(B,5), 
+                " samples where collected from ", lake,
+                " between ", fyear, " and ", lyear, sep="")
+#+END_SRC
+
+* Figure and Table Captions (cont't)
+** A another way:                                                   :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC R
+A <- pi
+B <- sqrt(pi)
+lake <- 'Lake Huron'
+fyear <- 1990 
+lyear <- 2003
+
+caption <- "This is a long figure caption where A = %.3f and
+           B = %.5f. Samples where collected from %s between 
+           %i and  %i."
+
+caption <- sprintf(caption, A, B, lake, fyear, lyear)
+#+END_SRC
 
 
 * knitr template
-- yassnippet template has been provided in workshop configuration
+- yasnippet template has been provided in workshop configuration
 - attempts to provide sensible default styles and options:
-  + cjfas bibliography style
   + sets figure directory in both \LaTeX and R
   + helper functions
   + running headers and footers
-+ in emacs createa new  *.rnw file and type ~knitr<TAB>~
+  + cjfas bibliography style
++ in emacs create a new  =*.rnw= file and type ~knitr<TAB>~
 
 
 * Is it worth it?
@@ -116,6 +374,8 @@
   + number of times they need to be recreated or updated
   + report complexity
 - personal choice
-- definite long-term savings - but it require short term investment
+- definite long-term savings
+  + require short term investment
+
 
 * Recap

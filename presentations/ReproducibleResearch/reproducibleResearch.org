@@ -128,11 +128,11 @@ Stanford University
   + branching and merging allow 'safe' development
 
 * An Alternative Work-flow (cont'd)
-
-#+LATEX: \begin{center}
+  
+  #+LATEX: \begin{center}
   #+latex:\includegraphics[width=\textwidth]{AlternativeWorkflow0}
-#+LATEX: \end{center}
-
+  #+LATEX: \end{center}
+  
 * An Alternative Work-flow (cont'd)
 
 #+LATEX: \begin{center}
