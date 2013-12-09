@@ -28,7 +28,7 @@
 
 #+BEAMER_FRAME_LEVEL: 1
 
-* Our Alternative Work-flow (cont'd)
+* Our Alternative Work-flow
   
 #+LATEX: \begin{center}
 #+latex:\includegraphics[width=\textwidth]{AlternativeWorkflow0}
@@ -41,7 +41,7 @@
   final reports
 #+END_COMMENT
 
-* Our Alternative Work-flow (cont'd)
+* Our Alternative Work-flow
 
 #+LATEX: \begin{center}
   #+latex:\includegraphics[width=\textwidth]{AlternativeWorkflow}
@@ -54,8 +54,81 @@
 
 
 * What is Git
+- distributed version control software
+- widely used in computer science and software engineering
+- designed to support development of Linux Kernel
+  + designed to scalable
+  + designed for collaberative coding
+- 'save-as' on steroids
+- distributed 
+  - no central server
+  - each repository is complete and independent
+
+* Version control allows you to
+- easily back-up projects to a server and/or the web
+- work effectively on multiple computers
+- reset your directory to any previous state
+- use branches to safely make changes that might break your code
+- work collaboratively with other analysts
+  - sharing whole project
+  - easily integrate their changes or contributions
 
 * Version Control Basics
+- 'repository' version control database
+  -  =.git= directory in project root
+- a 'commit' is a snapshop that captures the state of selected files
+- each commit has one or more parents
+- git allows us to reset the directory to the state of any existing
+  commit
+
+* Initialize Repository
+
+* First Commit
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{InitialCommit}
+#+LATEX: \end{center}
+
+
+* Second Commit
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{SecondCommit}
+#+LATEX: \end{center}
+
+* Third Commit
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{ThirdCommit}
+#+LATEX: \end{center}
+
+* Checkout Commit
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{CheckoutCommit}
+#+LATEX: \end{center}
+
+
+* Branch
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{Branch}
+#+LATEX: \end{center}
+
+
+* Checkout Branch
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{CheckoutBranch}
+#+LATEX: \end{center}
+
+
+* Merge
+
+#+LATEX: \begin{center}
+#+latex:\includegraphics[width=\textwidth]{Merge}
+#+LATEX: \end{center}
+
 
 * Setting up git
 
@@ -69,7 +142,20 @@
 > git config --global user.email "you@there.com"
 #+end_src
 
+** verify:                                                          :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC sh
+> git config --list
+#+END_SRC
+
+
 * Your First Repository
+
+- navigate to one of the example directories (e.g. -
+  ~/examples/9_amdb_sweave~) 
+- alternatively copy one to a convenient location
 
 ** from a command prompt: 					    :B_block:
    :PROPERTIES:
@@ -86,13 +172,71 @@
 * emacs and git: magit
 - git command line tool
 - several GUI's available
-- git plug-in 'magit'
+- most widely used plug-in for emacs is 'magit'
+
+** from emacs
+- open any file the in project directory
+- type ~C-c C-g~ to open ~*magit*~ buffer
+
+
+* What to commit - .gitignore
+
+- only source files need to checked into version control
+  + .r, .rnw
+  + .dat, .pin, .tpl
+- =.gitignore= controls files and directories that git will consider
+  as eligible
+  - .gitignore lists files and directories that will *NOT* be committed
+- an example for admb projects found in [[c:/Users/cottrillad/Desktop/workshop/utils/.gitignore][\texttildelow/workshop/utils/.gitignore]]
+
+#+BEGIN_COMMENT
+- copy .gitignore from [[c:/Users/cottrillad/Desktop/workshop/utils/.gitignore][\texttildelow/workshop/utils/.gitignore]] into
+  your project directory and then within
+  ~*magit*~ buffer type "=g=" to refresh it's contents
+
+- quickly review contents of .gitignore
+#+END_COMMENT
+
+
+* Staging
+- committing files in git is two step process
+- first need to be 'staged'
+  + placed in the queue
+- then committed
+  - during commit, all staged files are added to the repository
+- if you change file after it is staged, it needs to be 'unstaged'  and
+  staged again for changes to be reflected in commit
+
+** Staging files in ~*magit*~:
+- place your cursor beside each file and type "=s="
+- each file will move from ~Untracked Files~ to ~Staged Files~
+
 
 * Your First Commit
-- staging
-- committing
 
-* What is a hash??
+- each commit is accompanied by message
+  - first line - treated as title
+  - subsequent lines/paragraphs form body
+  - good messages a succinct and too point, but accurately capture
+    differences between previous commit
+  - git has a number of tools to search for commits based on message
+    content
+
+** Commit
+- if you're happy with the staged files type "=c=" to commit
+- emacs will open a =*magit-edit-log*= buffer
+- type your commit message and then type ~C-c C-c~ to finalize commit
+** ~*magit* buffer~                                                 :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC sh
+Local:    master ~/ScrapBook/gittest/
+Head:     5a1ee68 Initial commit of testgit.
+#+END_SRC
+
+
+* What is a hash?
 - git uses 'hashes' to track commits
 - a hash is generated by an algorithm run on the content of the
   commit
@@ -100,10 +244,10 @@
 - small changes in content result in wildly different hashes -
   probability of collisions extremely small.
 
-** why hashes??
+** why hashes?
 - distributed nature means that git can't use sequential commit numbers
 
-* What is a hash?? (cont'd)
+* What is a hash? (cont'd)
 
 - R can generate hashes using the digest library. 
 
@@ -127,12 +271,41 @@
 #+END_COMMENT
 
 * Your Second Commit
-- what just happened
 
-* Reverting to Initial Commit
+- make and some changes to any of files included in the first commit.
+- in the ~*magit*~  buffer type '=g=' to refresh it contents
+- the files you changed should appear under Changes in the ~*magit*~
+  buffer
+- to actually see the changes you just made, type "=d=" in the ~*magit*~
+  buffer followed by =<return>=
 
-* Git Log
-- provides a history of changes lead to current state
+* Git Diff
+
+- disply line-by-line difference between commits
+- by default shows difference between latest commit and current
+  directory contents
+- commit numbers and/or file names can be used as arguments
+- parts of each changed file are shown for context
+- new lines are green and prefixed with '+'
+- removed line red and prefixed with '-'
+
+* Git Diff 
+#+LATEX: \begin{center}
+#+latex: \includegraphics[width=\textwidth]{gitdiff}
+#+LATEX: \end{center}
+
+
+* Your Second Commit (cont'd)
+- if your are happy with status of files
+- stage each of the files as before
+- type "=c=" to open the commit buffer
+- provide a brief commit message and finialize the commit by typing
+  "~C-c C-c~"
+- the ~*magit*~ buffer will be reset with a new commit hash
+
+
+* Reviewing Previous Commits - Git Log
+- git log provides a history of changes that lead to current state
 - multiple options to control output and format
 
 ** from a command prompt in your working directory try:		    :B_block:
@@ -153,73 +326,119 @@
 + ~C-c C-g l l~
   
 
-* Git Diff
-
-- disply line-by-line difference between commits
-- by default shows difference between latest commit and current
-  directory contents
-- commit numbers and/or file names can be used as arguments
-- parts of each changed file are shown for context
-- new lines are green and prefixed with '+'
-- removed line red and prefixed with '-'
-
-* Git Diff 
-#+LATEX: \begin{center}
-#+latex: \includegraphics[width=\textwidth]{gitdiff}
-#+LATEX: \end{center}
-
-* What to commit - .gitignore
-
-- only source files need to checked into version control
-  + .r, .rnw
-  + .dat, .pin, .tpl
-- create .gitignore file in projects root
-- lists files and directories that will NOT be committed
-- an example for admb projects found in [[c:/Users/cottrillad/Desktop/workshop/utils/.gitignore][\texttildelow/workshop/utils/.gitignore]]
-
-
-#+BEGIN_COMMENT
-- quickly review contents of .gitignore
-#+END_COMMENT
-
-
-
-
 * When to commit
 - commit early and often
 - especially if tests pass or model converges
 - immediately before reporting
 
+
+* Reverting to Initial Commit
+
 * Creating Branches
 - easy to create branches
-- branches s
+- branches allow for independent parallel development without disrupting
+  existing code
+- making changes that might break something?  Create a branch
+
+** Switching between branches
+- 'checkout <branch name>'
 
 * Merging 
 
+
+- merging opposite of branching
+- merge commits have more than one parent
+- changes in each branch are integrated by git
+- merge conflict only occur if same lines changed in both commits
+
+** Merging
+- check out branch you want to keep =checkout master=
+  + ~b b~ in ~magit~
+- merge target branch with keeper by =merge <branchname>=
+  + ~m m~ in ~magit~
 
 * Remote Repositories
 - creating and configuring
 - what they are
 
+- remote repositories often original source of code
+- also serve as backup and mobile repositories
+
+** create a remote repository:                                      :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC sh
+> dir F:
+> mkdir gitrepos
+> cd gitrepos
+> git init --bare 
+> cd <your original repo>
+> git add remote usb F:/gitrepos
+> git remote -v
+#+END_SRC
+
 * Pushing and Pulling to Remote Repositories
 
 - workflow
 
+- use ~git push usb --all~ to synchronize the remote (usb) with local
+  repository
+
+- use ~git fetch usb~ followed by ~git merge master~ to synchronize
+  local repository with remote on usb
+- ~git pull usb~ is wrapper that calls ~git fetch usb~ and ~git merge
+  master~ for you
+
 * Clone Existing Repository
+
+- cloning a repository give you an exact copy of an existing
+  repository
+- clone from websites such as bitbucket or github
+- or from other sources such as usb, ftp site or cloud service
+- cloned repository will automatically have remote 
+  - named 'origin' by convention
+** Example:                                                         :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC sh
+> git clone https://github.com/AdamCottrill/QFC_Workshop.git
+#+END_SRC
 
 * Hooks
 - files that run on when specific actions occur
-- git has several hooks available
-- post-commit and post-checkout hook used to integreate git and
-  reproducible research
+- git has numerous hooks available
+- post-commit, post-checkout, and post-merge hooks used to integrate
+  git and reproducible research
 - need to be manually activated in each repository
-- each commit or check out will result in file being written to
+- each commit, merge or check out will result in file being written to
   working directory
 - contents of the file (commit hash) can then be integrated into
   reporting products
 
-* Hooks
+* Make your research reproducible
 
+- use hooks to write a file that contains commit number:
+  - on commit
+  - on merge
+  - on checkout
+- \LaTex{} package [[http://www.ctan.org/tex-archive/macros/latex/contrib/gitinfo][gitinfo]] to integrate commit number into all pdf
+  reports
+
+** changes to =*.rnw=                                               :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+
+#+BEGIN_SRC latex
+\usepackage{gitinfo}              % in preabmble
+...
+Commit Number: \gitAbbrevHash     % some where in document
+
+#+END_SRC
+
+* Hooks
 ** post-checkout hook                                               :B_block:
    :PROPERTIES:
    :BEAMER_env: block
@@ -238,11 +457,7 @@ for pref in $prefixes
                 authemail={%ae},
                 authsdate={%ad},
                 authidate={%ai},
-                authudate={%at},
-                commname={%an},
-                commemail={%ae},
-                commsdate={%ad},
-                commidate={%ai},
+...
                 commudate={%at},
                 refnames={%d}
         ]{gitsetinfo}" HEAD > $pref/gitHeadInfo.gin
@@ -277,13 +492,32 @@ for pref in $prefixes
 * Gotchas
 - reports must be generated *after* commiting working directory 
 
-
-
-
-
+- be careful with dropbox
+  - don't use dropbox as working directory with git
+  - dropbox folders are great as remote repositories 
 
 * Recap
 - git distributed version control system 
 - designed for collaborative use
 - magit emacs plugin for git
 - hooks extend functionality
+
+* Further Reading and References
+
+** Software Carpentry
++ [[http://software-carpentry.org/]]
+
+** Pro Git:
++ http://git-scm.com/book
+
+** excellent introductory book:
+- [[http://shop.oreilly.com/product/9780596520137.do][Version Control with Git]]
+
+** A highly recommended introductory talk:
+- http://www.youtube.com/watch?v=ZDR433b0HJY
+
+** A highly recommended intermediate talk:
+- http://www.youtube.com/watch?v=ig5E8CcdM9g
+
+** A recent blog post about using magit:
+- [[http://www.masteringemacs.org/articles/2013/12/06/introduction-magit-emacs-mode-git/][~/introduction-magit-emacs-mode-git/]]
