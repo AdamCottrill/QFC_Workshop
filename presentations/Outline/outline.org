@@ -20,16 +20,14 @@
 #+latex_header: \mode<beamer>{\usetheme{Boadilla}\usecolortheme[RGB={40,100,30}]{structure}}
 #+latex_header: %\usebackgroundtemplate{\includegraphics[width=\paperwidth]{MNRgreen}}
 #+latex_header: \setbeamersize{text margin left=10mm} 
-#+latex_header: \setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
+#+latex_header: %\setbeamertemplate{frametitle}{ \vskip20mm \insertframetitle }
 #+latex_header: \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+#+latex_header: \newcommand\Fontx{\fontsize{10}{12}\selectfont}
 
 #+latex_header: \graphicspath{{figures/}}
 
-
 #+BEAMER_FRAME_LEVEL: 1
-
-
-* Introductions
 
   
 * Workshop Objectives
@@ -40,6 +38,16 @@
 - provide an understanding of what each tool is doing and
   how they fit together
 - provide worked examples that can be adapted to real-world analysis
+
+* you will know how to:
+- automatically create pdf reports and presentations from 
+  analysis done in R and admb
+- use version control to:
+  - reset working directory to any previous state
+  - reproduce any previous report
+  - confidently make changes and updates to your code base
+  - seamlessly document changes to your analysis over time
+  - robustly backup or distribute your analysis
 
 * Workshop Approach
 - incrementally introduce tools and basic usage
@@ -66,13 +74,21 @@ OR
 
 * Course Materials
 - working environment:
-  - my public dropbox
-- presentations:
-  - github =qfc_workshop/presentations=
-    + ~git clone qfc_workshop/presentations~
-- examples:
-  - github =qfc_workshop/examples=
-    + ~git clone qfc_workshop/examples~
+  - my public dropbox:
+ [[https://dl.dropboxusercontent.com/u/69389312/workshop.zip]]
+
+** presentations and examples
++ [[https://github.com/AdamCottrill/QFC_Workshop]]   
+
+*** git clone:                                                      :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+#+LATEX: \Fontx
+#+BEGIN_SRC sh
+git clone https://github.com/AdamCottrill/QFC_Workshop.git
+#+END_SRC
+
 
 * Workshop Outline
 - Introduction

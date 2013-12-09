@@ -6,7 +6,7 @@
 #
 #prefixes=". test docs"    # Example for multiple gitHeadInfo.tex files
 #prefixes="."              # Default --- in the working copy root
-prefixes=". Sweave SweaveSEP"
+prefixes="."
 echo $GIT_DIR
 for pref in $prefixes
         do
