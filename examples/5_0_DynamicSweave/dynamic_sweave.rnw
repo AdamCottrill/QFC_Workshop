@@ -33,7 +33,7 @@ options(replace.assign=TRUE, width=90)
 
 <<label=get_the_data, include=FALSE>>=
 
-basin <- 'nc' # 'gb', 'smb' or 'nc'
+basin <- 'gb' # 'gb', 'smb' or 'nc'
 yr <- 2010     # 2009 or 2010
 
 fname <- paste('data/whitefish-', basin, '-', yr ,'.csv',sep='')
@@ -130,10 +130,10 @@ non-linear least squares by fitting the following model to the
 observed data:
 
 \begin{equation}
-L_i = L_{inf} (1 - e^{-k(t_i-t_0)}) + e_i
+L_i = L_{\infty} (1 - e^{-k(t_i-t_0)}) + e_i
 \end{equation}
 
-where $L_i$ is the length of the $i^{th}$ fish at age $t_i$, $Linf$ is the
+where $L_i$ is the length of the $i^{th}$ fish at age $t_i$, $L_{\infty}$ is the
 asymptotic length (in mm), $k$ is the Brody growth coefficient, $t0$
 is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
 The starting value for the asymptotic length was taken as the maximum
@@ -169,7 +169,7 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 #    'Whitefish sample from ', basin_label, " in ", yr,'.', sep='')
 
 caption <- 'Observed and predicted size at age of Lake 
-            Whitefish sample from %s in %i.'
+            Whitefish sampled from %s in %i.'
 caption <- sprintf(caption, basin_label, yr)
 
 print(xtable(mu, label="tbl:size-at-age", 

@@ -24,11 +24,6 @@ ADD timestamp footer to sweave reports
   generated from the data file
 - introduces concepts of chunks and \Sexpr{}
 
-** TODO sweave_chunk_options
-- this example is a bit of an aside and will demonstrate the effects
-  of some different chunk options.
-- include, figure, asis, etc
-
 ** DONE Abstracts
 - abstracts present special challenges because they are at the
   beginning of the document but need final results

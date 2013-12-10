@@ -46,8 +46,8 @@ options(replace.assign=TRUE, width=90)
 
 <<label=get_the_data, include=FALSE>>=
 
-wfdata <- read.csv('whitefish.csv', header=TRUE)
-ages <-  unique(wfdata$AGE)
+mydata <- read.csv('whitefish.csv', header=TRUE)
+ages <-  unique(mydata$AGE)
 
 @
 
@@ -64,9 +64,9 @@ the knitr package.
 <<label=fit_model, include=FALSE>>=
 
 #fit the model and predicte size at age
-start = list('Linf'=max(wfdata$FLEN), 't0'=0.0, 'k'=0.25)
+start = list('Linf'=max(mydata$FLEN), 't0'=0.0, 'k'=0.25)
 vonB <- nls(FLEN ~ Linf * (1 - exp(-k * (AGE - t0))),
-            data=wfdata, start=start)
+            data=mydata, start=start)
 
 estimates <- matrix(summary(vonB)$parameters, nrow=3)
 #rownames(estimates) <- names(coef(vonB))
@@ -84,8 +84,8 @@ predicted$FLEN <- predict(vonB, newdata=predicted)
 <<label=plot_fit, include=FALSE>>=
 
 #make a plot
-ylim <- c(0, max(wfdata$FLEN))
-plot(wfdata$AGE, wfdata$FLEN, xlab="Age",
+ylim <- c(0, max(mydata$FLEN))
+plot(mydata$AGE, mydata$FLEN, xlab="Age",
       ylab="Fork Length (mm)")
 lines(predicted$AGE, predicted$FLEN, col='blue')
 
@@ -94,7 +94,7 @@ lines(predicted$AGE, predicted$FLEN, col='blue')
 <<label=mean_size_at_age, include=FALSE>>=
 
 #calculate mean size at age
-mu <- dcast(wfdata, AGE~., value='FLEN', fun=mean)
+mu <- dcast(mydata, AGE~., value='FLEN', fun=mean)
 names(mu) <- c('Age','Observed')
 mu$Predicted <- predict(vonB, newdata=data.frame('AGE'=ages))
 
@@ -135,7 +135,7 @@ closely follow those described in \citet{2246} and \citet{2374}.
 \section*{Results}
 \label{sec:results}
 
-A total of \Sexpr{nrow(wfdata)} fish were selected for this analysis.
+A total of \Sexpr{nrow(mydata)} fish were selected for this analysis.
 The mean size at each age is summarized in table \ref{tbl:size-at-age}
 The Von Bertalanffy model appeared to fit the data well.  Parameter
 estimates and confidence intervals are presented in table
@@ -155,14 +155,20 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 
 <<label=meanTable, results='asis', echo=FALSE>>=
+
+caption <- "Observed and predicted size at age of Lake Whitefish sampled
+            from southern Lake Huron in 2009."
 print(xtable(mu, label="tbl:size-at-age", 
-       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009."), include.rownames=FALSE)
+       caption=caption), include.rownames=FALSE)
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=
-xtable(estimates, label="tbl:estimates", 
-       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4))
 
+caption <- "Parameter estimates, standard errors, t-values and associated
+            p-values for Von Bertalanffy growth curve."
+
+xtable(estimates, label="tbl:estimates", 
+       caption=caption, digits = c(0,2,2,2,4))
 @ 
 
 

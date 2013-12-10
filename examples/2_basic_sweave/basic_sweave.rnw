@@ -1,17 +1,16 @@
 \documentclass{article}
-\usepackage[sc]{mathpazo}
+%\usepackage[sc]{mathpazo}
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
-\setcounter{secnumdepth}{2}
-\setcounter{tocdepth}{2}
+%\setcounter{secnumdepth}{2}
+%\setcounter{tocdepth}{2}
 \usepackage{url}
 \usepackage[unicode=true,pdfusetitle,
  bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
  breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
  {hyperref}
-\hypersetup{
- pdfstartview={XYZ null null 1}}
+%\hypersetup{ pdfstartview={XYZ null null 1}}
 \usepackage{breakurl}
 \begin{document}
 
@@ -29,10 +28,8 @@ options(replace.assign=TRUE, width=90)
 
 \graphicspath{{\Sexpr{fig.path}}}
 
-
 \title{von Bertalanffy growth curve for lake whitefish sample from
        southern Lake Huron in 2009}
-
 
 \author{Bob Sakamano}
 
@@ -54,7 +51,6 @@ $\pm$ 0.02.
 <<label=get_the_data, include=FALSE>>=
 
 wfdata <- read.csv('whitefish.csv', header=TRUE)
-
 ages <-  unique(wfdata$AGE)
 
 @
@@ -64,7 +60,7 @@ ages <-  unique(wfdata$AGE)
 \label{sec:introduction}
 
 von Bertalanffy growth curve is often use to describe the growth of
-fish.  This paper describes how a von Bertalanffy growth curve can be
+fish.  This paper demonstrates how a von Bertalanffy growth curve can be
 fit in R and a pdf summary report can be automatically generated using
 the knitr package.
 
@@ -85,8 +81,6 @@ predicted <- data.frame('AGE' = seq((min(ages) -1),
                            max(ages) + 1, by=0.1), 'FLEN'=0)
 
 predicted$FLEN <- predict(vonB, newdata=predicted)
-
-
 
 @
 
@@ -166,13 +160,17 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 
 <<label=meanTable, results='asis', echo=FALSE>>=
+caption <- "Observed and predicted size at age of Lake Whitefish 
+            sampled from southern Lake Huron in 2009."
 xtable(mu, label="tbl:size-at-age", 
-       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009.", include.rownames=FALSE)
+       caption=caption, include.rownames=FALSE)
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=
+caption <- "Parameter estimates, standard errors, t-values and 
+            associated p-values for Von Bertalanffy growth curve."
 xtable(estimates, label="tbl:estimates", 
-       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4))
+       caption=caption, digits = c(0,2,2,2,4))
 
 @ 
 

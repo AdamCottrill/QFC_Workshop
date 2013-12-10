@@ -152,13 +152,20 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 
 
 <<label=meanTable, results='asis', echo=FALSE>>=
+
+caption <- "Observed and predicted size at age of Lake Whitefish
+            sampled from southern Lake Huron in 2009."
 print(xtable(mu, label="tbl:size-at-age", 
-       caption="Observed and predicted size at age of Lake Whitefish sample from southern Lake Huron in 2009."), include.rownames=FALSE)
+       caption=caption), include.rownames=FALSE)
+
 @ 
 
 <<label=Estimates, results='asis', echo=FALSE>>=
+
+caption <- "Parameter estimates, standard errors, t-values and 
+            associated p-values for Von Bertalanffy growth curve."
 xtable(estimates, label="tbl:estimates", 
-       caption="Parameter estimates, standard errors, t-values and associated p-values for Von Bertalanffy growth curve.", digits = c(0,2,2,2,4))
+       caption=caption, digits = c(0,2,2,2,4))
 
 @ 
 
@@ -173,7 +180,7 @@ trout.  These findings are largely consistent with previous on Lake
 Huron Lake Whitefish including....
 
 <<label=SweaveAnAbstrast, include=FALSE, echo=FALSE>>=
-  #R code here:
+  #Ok - now we can sweave the abstract 
   knit(input="abstract.rnw", output="abstract.tex")
 @
 
