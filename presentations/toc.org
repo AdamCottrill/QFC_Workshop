@@ -3,48 +3,43 @@
 1. Introduction
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\Outline\outline.org]]
-     + 
-        [[C:\1work\Modelling\QFC_workshop\presentations\Outline\outline.pdf]]
-     + MORE TO DO HERE
+     + [[C:\1work\Modelling\QFC_workshop\presentations\Outline\outline.pdf]]
+
 2. Reproducible Research  
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\ReproducibleResearch\reproducibleResearch.org]]
-     + 
-        [[C:\1work\Modelling\QFC_workshop\presentations\ReproducibleResearch\reproducibleResearch.pdf]]
-     + TODO:
-       + animate points
-       + first slide following but what if... literate programming
-         and Donald Knuth
+     + [[C:\1work\Modelling\QFC_workshop\presentations\ReproducibleResearch\reproducibleResearch.pdf]]
 
 3. Verify Software Setup
    + presentation:
      [[C:\1work\Modelling\QFC_workshop\presentations\set_up\setup.org]]
      [[C:\1work\Modelling\QFC_workshop\presentations\set_up\setup.pdf]]
+
 4. Introduction to emacs
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\emacs\IntroToEmacs.org]]
-     + 
-        [[C:\1work\Modelling\QFC_workshop\presentations\emacs\IntroToEmacs.pdf]]
-     + autocomplete doesn't seem to work as expected??
+     + [[C:\1work\Modelling\QFC_workshop\presentations\emacs\IntroToEmacs.pdf]]
+
 5. Introduction to \LaTeX
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\Latex\IntroToLatex.org]]
-     + 
-        [[C:\1work\Modelling\QFC_workshop\presentations\Latex\IntroToLatex.pdf]]
+     + [[C:\1work\Modelling\QFC_workshop\presentations\Latex\IntroToLatex.pdf]]
+
 6. Sweave/knitr
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\Knitr\IntroToKnitr.org]]
-     + 
-        [[C:\1work\Modelling\QFC_workshop\presentations\Knitr\IntroToKnitr.pdf]]
+     + [[C:\1work\Modelling\QFC_workshop\presentations\Knitr\IntroToKnitr.pdf]]
 
 7. Sharing Data between ADMB and R
    + presentation:
      + [[C:\1work\Modelling\QFC_workshop\presentations\AdmbAndR\AdmbAndR.org]]
      + [[C:\1work\Modelling\QFC_workshop\presentations\AdmbAndR\AdmbAndR.pdf]]
+
 8. Version Control
    + presentation:
      - [[C:\1work\Modelling\QFC_workshop\presentations\Git\IntroToGit.org]]
      - [[C:\1work\Modelling\QFC_workshop\presentations\Git\IntroToGit.pdf]]
 
  
- 
+        
+

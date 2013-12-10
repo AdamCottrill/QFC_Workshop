@@ -83,7 +83,7 @@ These set up instructions will:
 - re-open emacs by double clicking on emacs.bat 
   + the warnings should be gone
 
-* .emacs workshop-root
+* ~.emacs~ workshop-root
 - pay particular attention to line 5 of =~/workshop/.emacs=
 - it must be absolutely correct
   + all of slashes must lean to the right ("/")
@@ -317,7 +317,7 @@ This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9)
 - open a new buffer and cut and paste some text (preferably with at
   least one spelling mistake)
 - type ~Alt-x ispell <RETURN>~
-- suggestions for mis-spelled should be provided
+- suggestions for mis-spelled words should be provided
 - type ~Ctrl-g~ to quit
 
 

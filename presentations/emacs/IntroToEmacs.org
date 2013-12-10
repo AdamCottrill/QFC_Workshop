@@ -27,7 +27,7 @@
 
 
 #+BEAMER_FRAME_LEVEL: 1
-
+#+beamer: \beamerdefaultoverlayspecification{<+->}
 
 
 * What is emacs?
@@ -42,6 +42,7 @@
 - extremely powerful text editing capabilities
   - cutting and inserting blocks
   - global search and replace - plane text and regular expressions
+  - see: [[http://www.youtube.com/user/emacsrocks/videos]]
 - extensions and add-in for just about anything:
   - virtually any computer language
   - presentations (like this one)
@@ -70,8 +71,8 @@
 
 * Keyboard Short-cuts
 - interaction with emacs keyboard centric
-- most commands can be or are associated with key strokes
-- ~M-~  -> meta key (Alt on most keyboards)
+- most commands can be or are associated with key strokes or 'chords'
+- ~M-~  -> meta key (~Alt~ on most keyboards)
 - ~C-~  -> control key 
 - keystokes are often combined
  | ~C-x f~   | -> | open file          |
@@ -111,9 +112,9 @@
 | ~*.tpl~        | ~ADMB~              |
 | ~*.dat~        | ~perl~              |
 | ~*.r~          | ~ESS[S]~            |
-| ~*.tex~        | ~LaTeX~             |
+| ~*.tex~        | ~latex~             |
 | ~*.html~       | ~HTML~              |
-| ~*.rnw~        | ~LaTeX~ OR ~ESS[S]~ |
+| ~*.rnw~        | ~latex~ OR ~ESS[S]~ |
 
 - try some and see.
 
@@ -127,9 +128,9 @@
 | ~*.tpl~        | ~ADMB~     | ~hl-p yas~                     |
 | ~*.dat~        | ~perl~     | ~AC yas~                       |
 | ~*.r~          | ~ESS[S]~   | ~AC hl-p yas ElDoc~            |
-| ~*.tex~        | ~LaTeX~    | ~hl-p yas~                     |
+| ~*.tex~        | ~latex~    | ~hl-p yas~                     |
 | ~*.html~       | ~HTML~     | ~yas~                          |
-| ~*.rnw~        | ~LaTeX~    | ~hl-p yas Noweb NWFL~          |
+| ~*.rnw~        | ~latex~    | ~hl-p yas Noweb NWFL~          |
 | ~*.rnw~        | ~ESS[S]~   | ~AC hl-p yas ElDoc Noweb NWFL~ |
 
 ** minor modes used throughout workshop                             :B_block:
@@ -213,6 +214,7 @@ for this workshop
 | ~C-x C-r~ | open recent files          |
 | ~C->~     | insert string rectangle    |
 | ~C-x r k~ | kill string rectangle      |
+| ~C-x r t~ | replace string rectangle   |
 
 
 
@@ -333,11 +335,23 @@ for this workshop
 
 * Addition Resources and Further Reading
 
-+ emacs manuals: [[http://www.gnu.org/software/emacs/manual/]]
++ emacs manuals:
+  - [[http://www.gnu.org/software/emacs/manual/]]
 
-+ emacs-fu: http://emacs-fu.blogspot.ca/
++ emacs-fu: 
+  - http://emacs-fu.blogspot.ca/
 
-+ Xah emacs: [[http://ergoemacs.org/emacs/emacs.html]]
++ Xah emacs:
+  - [[http://ergoemacs.org/emacs/emacs.html]]
 
 
 * Recap
+- much more than just an editor
+- major modes are determined by file type and control basic functionality
+- minor mode add specialize behavior
+- keyboard centric
+- excellent support for:
+  + Latex
+  + R and knitr
+  + AD Model Builder
+  + git

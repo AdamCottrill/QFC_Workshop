@@ -28,6 +28,8 @@
 
 #+BEAMER_FRAME_LEVEL: 1
 
+#+beamer: \beamerdefaultoverlayspecification{<+->}
+
 * Our Alternative Work-flow
   
 #+LATEX: \begin{center}
@@ -61,6 +63,8 @@
 - designed to support development of Linux Kernel
   + to be scalable
   + to facilitate collaborative coding
+  + quick and efficient
+  + support and encourage branched development
 - 'save-as' on steroids
 
 
@@ -610,8 +614,12 @@ for pref in $prefixes
 * Recap
 - git distributed version control system 
 - designed for collaborative use
-- magit emacs plugin for git
-- hooks extend functionality
+- git is designed to handle branching and merging
+- commit early, commit often
+- commits are identified by unique hash values
+- hashes can be used to reset a directory to previous states
+- hash values can be embedded in reporting documents to make them
+  completely reproducible
 
 * Further Reading and References
 

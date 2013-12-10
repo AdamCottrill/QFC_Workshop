@@ -25,8 +25,8 @@
 
 #+latex_header: \graphicspath{{figures/}}
 
-
 #+BEAMER_FRAME_LEVEL: 1
+
 
 * Reproducible Research
 
@@ -104,18 +104,13 @@ Stanford University
     + How do I integrate their changes with my changes?
 
 
-* Reproducible Research
-
-- provides an alternative method of work that avoids many of these problems
-- Literate Programing
-- Donald Knuth
-- more recently...
-
 * An Alternative Work-flow
 
 - all preparation, analysis, reporting done in simple text files
-- results from analysis integrated directly into source code for reporting products -
-  reports, presentations, html documents
+- results from analysis integrated directly into source code for reporting products
+  + reports
+  + presentations
+  + html documents
 - reports automatically regenerated when data changes
 - no undocumented figures, tables or results
 
@@ -184,3 +179,6 @@ http://biostatistics.oxfordjournals.org/content/10/3/405.full
 
 + R's Reproducible Research Task page:
 http://cran.r-project.org/web/views/ReproducibleResearch.html
+
++ Dynamic Documents with R and knitr 
+[[http://www.amazon.com/dp/1482203537/ref%3Dcm_sw_su_dp][http://www.amazon.com/dp/1482203537/ref=cm_sw_su_dp]]

@@ -26,7 +26,7 @@
 
 
 #+BEAMER_FRAME_LEVEL: 1
-
+#+beamer: \beamerdefaultoverlayspecification{<+->}
 
 * Getting data from admb
 - write text files from admb

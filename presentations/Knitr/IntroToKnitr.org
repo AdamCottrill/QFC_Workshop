@@ -26,8 +26,8 @@
 
 #+latex_header: \graphicspath{{figures/}}
 
-
 #+BEAMER_FRAME_LEVEL: 1
+#+beamer: \beamerdefaultoverlayspecification{<+->}
 
 * Knitr - the new Sweave
 
@@ -46,7 +46,7 @@
 - no *.sty file to register with kritr
 - knitr chunk options are R-expressions
 - output code automatically 'pretty printed'
-- errors warning rendered directly in document
+- errors and warnings are rendered directly in document
 - graphics 
   - grid based graphics render without =print()=
   - multiple graphics per chunk
@@ -224,8 +224,8 @@ The value of \pi = 3.1416.
 #+LATEX: \Fontx
 #+BEGIN_SRC R
 <<label=M2, results='asis'>>=
-   cap.txt = paste0("Coefficient estimates, standard errors "
-                   "and associated p-values for Model 2.")
+   cap.txt = "Coefficient estimates, standard errors 
+              and associated p-values for Model 2."
    xtable(M2, caption = cap.txt, label="tbl:M2")
 @
 
@@ -252,9 +252,11 @@ Mort.summary(scaa, latex=TRUE)
 - handling figures much improved in knitr
   - still too much magic 
   
+
 ** Zen of Python:                                               :B_quotation:
    :PROPERTIES:
    :BEAMER_env: quotation
+   :BEAMER_envargs: <2->
    :END:
 
 "Explicit is better than implicit."
@@ -360,7 +362,7 @@ caption <- sprintf(caption, A, B, lake, fyear, lyear)
 * knitr template
 - yasnippet template has been provided in workshop configuration
 - attempts to provide sensible default styles and options:
-  + sets figure directory in both \LaTeX and R
+  + sets figure directory in both \LaTeX{} and R
   + helper functions
   + running headers and footers
   + cjfas bibliography style
@@ -379,3 +381,12 @@ caption <- sprintf(caption, A, B, lake, fyear, lyear)
 
 
 * Recap
+- knitr is the new Sweave
+- sweave and knitr are literate programming functions for R
+- R code is embedded directly in \LaTeX{} source documents
+  - in line using ~\Sexpr{}~
+  - or in chunks
+- chunks options determine how the code and its results are handled
+- tables can be created using =Hmisc=, =xtable= or =tables= R-packages
+- figures can be handled directly by knitr or explicitly with both R
+  and \LaTeX{} code blocks
