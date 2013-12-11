@@ -94,6 +94,10 @@ fit$cor
 #a coda object.  If the mcmc file is a cvs file with a header row, no
 #additional arguments are needed.
 
+# don't forget to create mcmc chain first;
+# -mcmc 100000 -mcsave 50
+# -mceval
+
 mcmc <- read.mcmc(mcmc.file="mcmc.csv")
 class(mcmc)
 str(mcmc)
@@ -102,8 +106,8 @@ str(mcmc)
 plot(mcmc)                  
 xyplot(mcmc,  aspect="fill", layout=c(2,2))
 densityplot(mcmc, aspect="fill", layout=c(2,2))
-acfplot(my.mcmc, aspect="fill", layout=c(2,3))
-qqmath(my.mcmc, aspect="fill", layout=c(2,3))
+acfplot(mcmc, aspect="fill", layout=c(2,2))
+qqmath(mcmc, aspect="fill", layout=c(2,2))
 
 
 #===============
