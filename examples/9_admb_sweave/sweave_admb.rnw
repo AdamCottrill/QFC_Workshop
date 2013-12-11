@@ -192,9 +192,10 @@ observed mean size at age has been provided \ref{fig:plot_fit}.
 #    'Whitefish sampled from ', basin_label, " in ", yr,'.', sep='')
 
 caption <- 'Observed and predicted size at age of Lake Whitefish 
-           sampled from %s in %i and %i'
-caption <- sprintf(caption, basin_label, fyear, lyear)
-    
+           sampled from %s in %i.'
+caption <- sprintf(caption, basin_label, yr)
+
+
 print(xtable(mu, label="tbl:size-at-age",
        caption=caption), include.rownames=FALSE)                        
 @ 

@@ -17,6 +17,9 @@ fig.path <- 'figures/'
 opts_chunk$set(fig.path=fig.path, fig.align='center', fig.show='hold')
 options(replace.assign=TRUE, width=90)
 
+#make the figure directory if it does not exist
+suppressWarnings(dir.create(file.path(getwd(),fig.path)))
+
 @
 
 <<label=get_the_data, include=FALSE>>=
