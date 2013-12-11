@@ -18,6 +18,6 @@ independent survey conducted by the Ontario Ministry of Natural
 resources.  A total of \Sexpr{nrow(wfdata)} lake whitefish were include in the sample.
 The Von Bertalanffy growth parameters estimated using non-linar least
 squares where 
-Linf= \Sexpr{Linf} $\pm$ \Sexpr{Linf.se}, 
-k = \Sexpr{k} $\pm$ \Sexpr{k.se}, and 
-t0= \Sexpr{t0} $\pm$ \Sexpr{t0.se}.
+$L_{\infty}$= \Sexpr{Linf} $\pm$ \Sexpr{Linf.se}, 
+$k$ = \Sexpr{k} $\pm$ \Sexpr{k.se}, and 
+$t_0$= \Sexpr{t0} $\pm$ \Sexpr{t0.se}.

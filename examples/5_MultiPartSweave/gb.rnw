@@ -117,23 +117,35 @@ mus <- merge(mu_09, mu_10, by='Age', all.x=TRUE, all.y=TRUE)
 
 <<label=paste0("meanTable_", basin), results='asis', echo=FALSE>>=
 
-caption = paste('Observed and predicted size at age of Lake ',
-    'Whitefish sampled from ', basin_label, " in ", fyear, ' and ',
-    lyear, '.', sep='')
+#caption = paste('Observed and predicted size at age of Lake ',
+#    'Whitefish sampled from ', basin_label, " in ", fyear, ' and ',
+#    lyear, '.', sep='')
+
+
+caption = 'Observed and predicted size at age of Lake
+           Whitefish sampled from %s in %i and %i.'
+
+caption <- sprintf(caption, basin_label, fyear, lyear)
 
 print(xtable(mus, label=paste0("tbl:size-at-age-", basin),
        caption=caption), include.rownames=FALSE)             
-             
-             
+                          
 @ 
 
 <<label=paste0("Estimates_", basin), results='asis', echo=FALSE>>=
 
-caption <- paste0("Parameter estimates, standard errors, t-values ",
-                  "and associated p-values for coeffient estimates of ",
-                  "a Von Bertalanffy growth curve fit to lake ",
-                  "whitefish sampled from ", basin_label, " in ", fyear, 
-                  ' and ', lyear, '.')
+#caption <- paste0("Parameter estimates, standard errors, t-values ",
+#                  "and associated p-values for coeffient estimates of ",
+#                  "a Von Bertalanffy growth curve fit to lake ",
+#                  "whitefish sampled from ", basin_label, " in ", fyear, 
+#                  ' and ', lyear, '.')
+
+caption <- "Parameter estimates, standard errors, t-values 
+            and associated p-values for coeffient estimates of 
+            a Von Bertalanffy growth curve fit to lake 
+            whitefish sampled from %s in %i and %i."
+
+caption <- sprintf(caption, basin_label, fyear, lyear)
 
 xtable(estimates, label=paste0("tbl:estimates-", basin), 
        caption=caption,

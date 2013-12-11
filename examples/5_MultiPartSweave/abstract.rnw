@@ -1,5 +1,29 @@
 <<getpars, include=FALSE>>=
 
+get_Linf <- function(vonb){
+# a little helper function to extract just the estimate for Linf and
+# its standard error
+    linf <- coef(summary(vonb))[1, c(1,2)]
+    return(linf)  
+}
+
+#compile all of the Linf's into a matrix
+Linfs <- get_Linf(gb_09_vonB)
+Linfs <- rbind(Linfs, get_Linf(gb_10_vonB))
+Linfs <- rbind(Linfs, get_Linf(nc_09_vonB))
+Linfs <- rbind(Linfs, get_Linf(nc_10_vonB))
+Linfs <- rbind(Linfs, get_Linf(smb_09_vonB))
+Linfs <- rbind(Linfs, get_Linf(smb_10_vonB))
+
+#get the largest and smallest Linf (and their se's)
+maxLinf <- Linfs[which(Linfs[,1]==max(Linfs[,1])),]
+minLinf <- Linfs[which(Linfs[,1]==min(Linfs[,1])),]
+
+#we also need to know how many fish were fit each year
+Nobs <- c(nrow(nc_09_data), nrow(nc_10_data),
+          nrow(gb_09_data), nrow(gb_10_data),
+          nrow(smb_09_data), nrow(smb_10_data))
+
 
 @ 
 
@@ -7,7 +31,11 @@ A von Bertalanffy growth curve was fit to Lake Whitefish (Coregonus
 clupeaformis) sampled from three basins of Lake Huron in \Sexpr{fyear}
 and \Sexpr{lyear}.  Lake whitefish were collected from the commerical
 fishery as well as the independent survey conducted by the Ontario
-Ministry of Natural resources.  Annual sample sizes ranged from XX to
-total of YY lake.  Estimated values of Linf ranged from AA $\pm$ aa to
-BB $\pm$ bb.
+Ministry of Natural resources.  Annual sample sizes used in this
+analysis ranged from \Sexpr{min(Nobs)} to \Sexpr{max(Nobs)}.
+Estimated values of $L_{\infty}$ ranged from
+\Sexpr{sprintf('%.1f', maxLinf[[1]])} $\pm$ 
+  \Sexpr{sprintf('%.2f', maxLinf[[2]])} to
+\Sexpr{sprintf('%.1f', minLinf[[1]])} $\pm$ 
+  \Sexpr{sprintf('%.2f', minLinf[[2]])}.
 

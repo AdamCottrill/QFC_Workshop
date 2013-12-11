@@ -1,18 +1,6 @@
 \documentclass{article}
-\usepackage[sc]{mathpazo}
+\usepackage[]{graphicx}
 \usepackage[T1]{fontenc}
-\usepackage{geometry}
-\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
-\setcounter{secnumdepth}{2}
-\setcounter{tocdepth}{2}
-\usepackage{url}
-\usepackage[unicode=true,pdfusetitle,
- bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
- breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
- {hyperref}
-\hypersetup{
- pdfstartview={XYZ null null 1}}
-\usepackage{breakurl}
 
 \usepackage[numbers]{natbib}			
 \bibpunct{(}{)}{;}{a}{,}{,}
@@ -121,14 +109,14 @@ non-linear least squares by fitting the following model to the
 observed data:
 
 \begin{equation}
-L_i = L_{inf} (1 - e^{-k(t_i-t_0)}) + e_i
+L_i = L_{\infty} (1 - e^{-k(t_i-t_0)}) + e_i
 \end{equation}
 
-where $L_i$ is the length of the $i^{th}$ fish at age $t_i$, $Linf$ is the
+where $L_i$ is the length of the $i^{th}$ fish at age $t_i$, $L_{\infty}$ is the
 asymptotic length (in mm), $k$ is the Brody growth coefficient, $t0$
-is the theoretical length at age 0, and $e_i$  is $N(0,\sigma ^2)$.
+is the theoretical age at length 0, and $e_i$  is $N(0,\sigma ^2)$.
 The starting value for the asymptotic length was taken as the maximum
-observed fork length in the sample, while $t0$ and $k$ were arbitrarily
+observed fork length in the sample, while $t_0$ and $k$ were arbitrarily
 set to 0.0 and 0.25 respectively.  The methods used in this analysis
 closely follow those described in \citet{2246} and \citet{2374}.
 
@@ -179,7 +167,7 @@ Older Lake Whitefish are smaller than younger.  Lake Whitefish from
 souther Lake Huron appear to be bigger than yellow perch and smaller
 than lake trout but grow slower than yellow perch and faster than lake
 trout.  These findings are largely consistent with previous on Lake
-Huron Lake Whitefish including by ....
+Huron Lake Whitefish including those reported ....
 
 <<label=SweaveAnAbstrast, include=FALSE, echo=FALSE>>=
   #R code here:
@@ -188,6 +176,15 @@ Huron Lake Whitefish including by ....
 
 \bibliographystyle{cjfas} 
 \bibliography{references}
+
+%this will produce a footer with system information for future reference
+\makeatletter{\renewcommand*{\@makefnmark}{}
+  \footnotetext{
+    This document was produced
+    on~\today~using ~\Sexpr{version$version.string}~on a~
+    \Sexpr{version$platform}~platform.}}
+%--------------------------------------------------
+
 
 \end{document}
 

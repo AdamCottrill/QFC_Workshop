@@ -1,5 +1,3 @@
-
-
 *.log
 *.out
 *.aux
@@ -11,7 +9,6 @@
 *.toc
 *.aux
 *.out
-
 *.gin
 *.bar
 *.cor
@@ -46,6 +43,9 @@
 /variance
 /Figures/*
 /RunRetro* 
+
+*.bbl
+*.blg
 
 examples/2_basic_sweave/basic_sweave.pdf
 examples/2_basic_sweave/basic_sweave.tex
