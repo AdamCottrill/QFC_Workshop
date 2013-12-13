@@ -339,7 +339,7 @@ caption <- paste("This is a long figure caption where A = ",
 #+END_SRC
 
 * Figure and Table Captions (cont't)
-** A another way:                                                   :B_block:
+** Another way:                                                     :B_block:
    :PROPERTIES:
    :BEAMER_env: block
    :END:

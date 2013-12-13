@@ -13,20 +13,88 @@
 library(knitr)
 library(reshape2)
 library(xtable)
+library(RODBC)
+
 # set global chunk options
 fig.path <- 'figures/'
 opts_chunk$set(fig.path=fig.path, fig.align='center', fig.show='hold')
 options(replace.assign=TRUE, width=90)
 
+#database:
+#in same directory here, otherwise provide full path 
+dbase <- 'wfdata.mdb'
+#dbase <- 'c:/1work/Modelling/QFC_workshop/examples/7_Sweave_ODBC/wfdata.mdb'
+
 @
 
 <<label=get_the_data, include=FALSE>>=
 
-basin <- 'smb' # 'gb', 'smb' or 'nc'
+basin <- 'nc' # 'gb', 'smb' or 'nc'
 yr <- 2009     # 2009 or 2010
 
-fname <- paste('data/whitefish-', basin, '-', yr ,'.csv',sep='')
-mydata <- read.csv(fname, header=TRUE)
+##  #get the data with a parametized query stored in your database
+##  DBConnection <- odbcConnectAccess(dbase, uid = "", pwd = "")
+##  
+##    sql <- "EXEC Parameterized_select @basin=%s, @yr=%i" 
+##    sql <- sprintf(sql, basin, yr)
+##  
+##    mydata <- sqlQuery(DBConnection, sql)
+##    nrow(mydata)
+##    head(mydata)
+##  odbcClose(DBConnection)
+
+  
+##  #get the data with raw sql - arguments substituted with sprintf
+##  #this approach keeps all of your code contained in this script - no
+##  #external dependancies (ie. save query that might go missing).
+##  DBConnection <- odbcConnectAccess(dbase,uid = "", pwd = "")
+##  
+##    sql <- "SELECT FLEN, AGE FROM whitefish WHERE basin='%s' AND yr=%i"
+##    sql <- sprintf(sql, basin, yr)
+##  
+##    mydata <- sqlQuery(DBConnection, sql)
+##    nrow(mydata)
+##    head(mydata)
+##  odbcClose(DBConnection)
+  
+##  #or - get all of the data and subset it in R
+##  #(This approach is fine if your database is
+##  #relatively small - If the select query returns a huge number of
+##  #records you aren't interested in, I would use one of the other
+##  #methods).
+##  
+##  DBConnection <- odbcConnectAccess(dbase,uid = "", pwd = "")
+##  
+##    sql <- "SELECT FLEN, AGE, basin, yr FROM whitefish"
+##    mydata <- sqlQuery(DBConnection, sql)
+##  
+##    mydata <- mydata[mydata$basin==basin &
+##                     mydata$yr==yr,c('FLEN','AGE')]
+##    nrow(mydata)
+##    head(mydata)
+##  odbcClose(DBConnection)
+  
+
+# Finally, you can select all of the data with a select query that is
+# stored in your access database - simply call it and subset the data
+# as necessary (again this best if the whole data set isn't
+# unreasonably large).
+DBConnection <- odbcConnectAccess(dbase,uid = "", pwd = "")
+
+  #a query named 'get_whitefish' exists in our ms access database
+  mydata <- sqlFetch(DBConnection, "get_whitefish", colnames=FALSE, 
+                     rownames=FALSE)
+
+  mydata <- mydata[mydata$basin==basin &
+                   mydata$yr==yr,c('FLEN','AGE')]
+  nrow(mydata)
+  head(mydata)
+odbcClose(DBConnection)
+
+
+
+
+
 ages <-  unique(mydata$AGE)
 
 basin_label <- switch(basin,

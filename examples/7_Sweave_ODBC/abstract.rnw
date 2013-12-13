@@ -1,0 +1,23 @@
+<<getpars, include=FALSE>>=
+
+Linf <- sprintf('%.1f', estimates[1, 1])
+Linf.se <- sprintf('%.1f', estimates[1, 2])
+
+t0 <- sprintf('%.2f', estimates[2, 1])
+t0.se <- sprintf('%.2f', estimates[2, 2])
+
+k <- sprintf('%.2f', estimates[3, 1])
+k.se <- sprintf('%.2f', estimates[3, 2])
+
+@ 
+
+A von Bertalanffy growth curve was fit to Lake Whitefish (Coregonus
+clupeaformis) sampled from \Sexpr{basin_label} in \Sexpr{yr}.  Lake
+whitefish were collected from the commerical fishery as well as the
+independent survey conducted by the Ontario Ministry of Natural
+resources.  A total of \Sexpr{nrow(mydata)} lake whitefish were include in the sample.
+The von Bertalanffy growth parameters estimated using non-linar least
+squares where 
+$L_{\infty}$= \Sexpr{Linf} $\pm$ \Sexpr{Linf.se}, 
+$k$ = \Sexpr{k} $\pm$ \Sexpr{k.se}, and 
+$t_0$= \Sexpr{t0} $\pm$ \Sexpr{t0.se}.

@@ -95,7 +95,7 @@ REPORT_SECTION
 #+BEGIN_SRC R
 open_r_file(adprogram_name + ".rdat", 6, -999);
 ...
-close_r_file(
+close_r_file()
 #+END_SRC
 
 ** info\_list:                                                      :B_block:

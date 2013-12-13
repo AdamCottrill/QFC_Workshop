@@ -87,6 +87,11 @@ examples/6_Presentations/sweave_beamer.pdf
 examples/6_Presentations/sweave_beamer.snm
 examples/6_Presentations/sweave_beamer.vrb
 
+examples/7_Sweave_ODBC/abstract.tex
+examples/7_Sweave_ODBC/figures/plot_fit.pdf
+examples/7_Sweave_ODBC/sweave_odbc.pdf
+examples/7_Sweave_ODBC/sweave_odbc.tex
+
 examples/9_admb_sweave/figures/plot_fit.pdf
 examples/9_admb_sweave/mcmc.csv
 examples/9_admb_sweave/sweave_admb.pdf
